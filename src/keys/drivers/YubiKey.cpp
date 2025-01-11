@@ -1,6 +1,6 @@
 /*
+ *  Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2014 Kyle Manna <kyle@kylemanna.com>
- *  Copyright (C) 2017-2021 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,8 +23,6 @@
 #include <QMutexLocker>
 #include <QSet>
 #include <QtConcurrent>
-
-QMutex YubiKey::s_interfaceMutex;
 
 YubiKey::YubiKey()
 {
@@ -122,7 +120,7 @@ QString YubiKey::errorMessage()
  */
 bool YubiKey::testChallenge(YubiKeySlot slot, bool* wouldBlock)
 {
-    QMutexLocker lock(&s_interfaceMutex);
+    QMutexLocker lock(&m_interfaces_detect_mutex);
 
     if (m_usbKeys.contains(slot)) {
         return YubiKeyInterfaceUSB::instance()->testChallenge(slot, wouldBlock);

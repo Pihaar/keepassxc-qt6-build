@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
+ * Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,7 +56,9 @@ KdbxXmlReader::KdbxXmlReader(quint32 version, QHash<QString, QByteArray> binaryP
 QSharedPointer<Database> KdbxXmlReader::readDatabase(const QString& filename)
 {
     QFile file(filename);
-    file.open(QIODeviceBase::ReadOnly);
+    if (!file.open(QIODeviceBase::ReadOnly)) {
+        return nullptr;
+    }
     return readDatabase(&file);
 }
 

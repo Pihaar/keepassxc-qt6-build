@@ -1,4 +1,4 @@
-#  Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
+#  Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
 #  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -429,8 +429,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 # Process .qrc files automatically
 set(CMAKE_AUTORCC ON)
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/deploy)
 
 add_definitions(-DQT_NO_EXCEPTIONS -DQT_STRICT_ITERATORS -DQT_NO_CAST_TO_ASCII)
 if(NOT CMAKE_BUILD_TYPE_LOWER STREQUAL "debug")

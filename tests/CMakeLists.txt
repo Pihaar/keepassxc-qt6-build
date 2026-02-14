@@ -1,4 +1,4 @@
-#  Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
+#  Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
 #  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,8 @@ include_directories(
         ${CMAKE_CURRENT_BINARY_DIR}
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_CURRENT_BINARY_DIR}/../src)
+
+add_definitions(-DQT_TEST_LIB -DQT_NO_USE_NODISCARD_FILE_OPEN)
 
 set(KEEPASSX_TEST_DATA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/data)
 configure_file(config-keepassx-tests.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-keepassx-tests.h)

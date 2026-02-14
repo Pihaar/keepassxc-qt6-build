@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
+ *  Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -78,8 +78,9 @@ void KdbxXmlWriter::writeDatabase(QIODevice* device,
 void KdbxXmlWriter::writeDatabase(const QString& filename, Database* db)
 {
     QFile file(filename);
-    file.open(QIODevice::WriteOnly | QIODevice::Truncate);
-    writeDatabase(&file, db);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        writeDatabase(&file, db);
+    }
 }
 
 bool KdbxXmlWriter::hasError()

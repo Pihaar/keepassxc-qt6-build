@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
+ *  Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2000-2008 Tom Sato <VEF00200@nifty.ne.jp>
  *
@@ -56,6 +56,7 @@ private:
     QString windowClassName(Window window);
     QList<Window> widgetsToX11Windows(const QWidgetList& widgetList);
     bool isTopLevelWindow(Window window);
+    unsigned long appUserTime(Window window);
 
     XkbDescPtr getKeyboard();
     bool RemapKeycode(KeySym keysym);
@@ -75,6 +76,7 @@ private:
     Atom m_atomNetActiveWindow;
     Atom m_atomTransientFor;
     Atom m_atomWindow;
+    Atom m_appUserTime;
     QSet<QString> m_classBlacklist;
 
     typedef struct

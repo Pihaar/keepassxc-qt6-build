@@ -1,4 +1,4 @@
-#  Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
+#  Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
 #  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -373,7 +373,7 @@ if(UNIX AND NOT APPLE)
     target_link_libraries(keepassxc_core Qt6::DBus ${LIBUSB_LIBRARIES})
     target_include_directories(keepassxc_gui PRIVATE ${Qt5Gui_PRIVATE_INCLUDE_DIRS})
     if(WITH_X11)
-        target_link_libraries(keepassxc_gui Qt6::GuiPrivate X11)
+        target_link_libraries(keepassxc_gui X11)
     endif()
 endif()
 if(WIN32)

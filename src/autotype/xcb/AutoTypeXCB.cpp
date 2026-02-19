@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
+ *  Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2012 Felix Geyer <debfx@fobos.de>
  *  Copyright (C) 2000-2008 Tom Sato <VEF00200@nifty.ne.jp>
  *
@@ -23,9 +23,9 @@
 
 #include <QGuiApplication>
 #include <X11/XKBlib.h>
+#include <X11/Xatom.h>
 #include <X11/Xutil.h>
 #include <X11/extensions/XTest.h>
-#include <private/qtx11extras_p.h>
 
 /* map of ASCII non-dead keys to equivalent dead keys that need to be repeated */
 static const QPair<KeySym, KeySym> deadMap[] = {
@@ -52,6 +52,7 @@ AutoTypePlatformX11::AutoTypePlatformX11()
     m_atomNetActiveWindow = XInternAtom(m_dpy, "_NET_ACTIVE_WINDOW", True);
     m_atomTransientFor = XInternAtom(m_dpy, "WM_TRANSIENT_FOR", True);
     m_atomWindow = XInternAtom(m_dpy, "WINDOW", True);
+    m_appUserTime = XInternAtom(m_dpy, "_NET_WM_USER_TIME", False);
 
     m_classBlacklist << "desktop_window" << "gnome-panel"; // Gnome
     m_classBlacklist << "kdesktop" << "kicker"; // KDE 3
@@ -290,6 +291,31 @@ bool AutoTypePlatformX11::isTopLevelWindow(Window window)
     }
 
     return result;
+}
+
+unsigned long AutoTypePlatformX11::appUserTime(Window window)
+{
+    auto appUserTime = 0;
+
+    Atom type = None;
+    int format;
+    unsigned long nitems;
+    unsigned long after;
+    unsigned char* data = nullptr;
+
+    if (XGetWindowProperty(
+            m_dpy, window, m_appUserTime, 0, 1, False, XA_CARDINAL, &type, &format, &nitems, &after, &data)
+        == Success) {
+        if (data && nitems == 1) {
+            appUserTime = *reinterpret_cast<unsigned long*>(data);
+        }
+
+        if (data) {
+            XFree(data);
+        }
+    }
+
+    return appUserTime;
 }
 
 /*
@@ -628,7 +654,7 @@ bool AutoTypePlatformX11::raiseWindow(WId window)
     event.xclient.message_type = m_atomNetActiveWindow;
     event.xclient.format = 32;
     event.xclient.data.l[0] = 1; // FromApplication
-    event.xclient.data.l[1] = QX11Info::appUserTime();
+    event.xclient.data.l[1] = appUserTime(window);
     QWidget* activeWindow = QApplication::activeWindow();
     if (activeWindow) {
         event.xclient.data.l[2] = activeWindow->internalWinId();

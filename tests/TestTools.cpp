@@ -426,7 +426,7 @@ void TestTools::testGetMimeTypeByFileInfo()
     const QStringList UnknownHeaders = {"test.doc", "test.pdf", "test.docx"};
 
     for (const auto& unknown : UnknownHeaders) {
-        QCOMPARE(Tools::getMimeType(unknown), Tools::MimeType::Unknown);
+        QCOMPARE(Tools::getMimeType(QFileInfo(unknown)), Tools::MimeType::Unknown);
     }
 }
 

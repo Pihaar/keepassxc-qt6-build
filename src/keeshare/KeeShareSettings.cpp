@@ -352,7 +352,7 @@ namespace KeeShareSettings
                     reference.path = QString::fromUtf8(QByteArray::fromBase64(reader.readElementText().toLatin1()));
                 } else if (reader.name().toString() == "Password") {
                     reference.password = QString::fromUtf8(QByteArray::fromBase64(reader.readElementText().toLatin1()));
-                } else if (reader.name() == "KeepGroups") {
+                } else if (reader.name().toString() == "KeepGroups") {
                     reference.keepGroups = reader.readElementText().compare("True") == 0;
                 } else {
                     qDebug("Unknown Reference element %s", qPrintable(reader.name().toString()));

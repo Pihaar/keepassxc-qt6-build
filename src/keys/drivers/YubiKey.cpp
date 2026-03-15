@@ -24,6 +24,8 @@
 #include <QSet>
 #include <QtConcurrent>
 
+QMutex YubiKey::s_interfaceMutex;
+
 YubiKey::YubiKey()
 {
     int num_interfaces = 0;
@@ -88,7 +90,8 @@ void YubiKey::findValidKeysAsync()
     // Don't start another scan if we are already doing one
     if (!m_findingKeys) {
         m_findingKeys = true;
-        QtConcurrent::run([this] { emit detectComplete(findValidKeys()); });
+        auto future = QtConcurrent::run([this] { emit detectComplete(findValidKeys()); });
+        Q_UNUSED(future)
     }
 }
 
@@ -120,7 +123,7 @@ QString YubiKey::errorMessage()
  */
 bool YubiKey::testChallenge(YubiKeySlot slot, bool* wouldBlock)
 {
-    QMutexLocker lock(&m_interfaces_detect_mutex);
+    QMutexLocker lock(&s_interfaceMutex);
 
     if (m_usbKeys.contains(slot)) {
         return YubiKeyInterfaceUSB::instance()->testChallenge(slot, wouldBlock);

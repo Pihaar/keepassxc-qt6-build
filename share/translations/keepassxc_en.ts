@@ -9308,23 +9308,8 @@ This option is deprecated, use --set-key-file instead.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cannot generate valid passphrases because the wordlist is too short</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Passkey</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete plugin data?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <source>Delete plugin data from Entry(s)?</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
     </message>
     <message>
         <source>Reset Shortcuts</source>

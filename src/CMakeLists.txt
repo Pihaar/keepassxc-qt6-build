@@ -323,9 +323,6 @@ endif()
 configure_file(config-keepassx.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-keepassx.h)
 configure_file(git-info.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/git-info.h)
 
-# Compatibility
-find_package(Qt6 REQUIRED COMPONENTS Core5Compat)
-
 # SVG Widgets
 find_package(Qt6 REQUIRED COMPONENTS SvgWidgets)
 
@@ -335,7 +332,6 @@ target_compile_definitions(keepassxc_core PRIVATE KPXC_BUILDING_CORE)
 target_link_libraries(keepassxc_core 
         ${qrcode_LIB}
         Qt6::Core
-        Qt6::Core5Compat
         Qt6::Concurrent
         ${BOTAN_LIBRARIES}
         ${PCSC_LIBRARIES}

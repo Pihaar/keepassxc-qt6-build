@@ -33,8 +33,6 @@ function(add_unit_test)
     set_tests_properties(${TEST_NAME} PROPERTIES ENVIRONMENT "LANG=en_US.UTF-8")
 endfunction()
 
-find_package(Qt6 REQUIRED COMPONENTS Core5Compat)
-
 set(TEST_LIBRARIES keepassxc_gui Qt6::Test)
 
 set(testsupport_SOURCES
@@ -43,7 +41,7 @@ set(testsupport_SOURCES
         mock/MockClock.cpp
         util/TemporaryFile.cpp)
 add_library(testsupport STATIC ${testsupport_SOURCES})
-target_link_libraries(testsupport Qt6::Core Qt6::Concurrent Qt6::Core5Compat Qt6::Widgets Qt6::Test)
+target_link_libraries(testsupport Qt6::Core Qt6::Concurrent Qt6::Widgets Qt6::Test)
 
 add_unit_test(NAME testgroup SOURCES TestGroup.cpp
         LIBS testsupport ${TEST_LIBRARIES})

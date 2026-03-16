@@ -21,7 +21,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QRegularExpression>
-#include <QTextCodec>
+#include <QStringConverter>
 
 #include "core/Endian.h"
 #include "core/Group.h"
@@ -302,8 +302,10 @@ KeePass1Reader::testKeys(const QString& password, const QByteArray& keyfileData,
 
     QScopedPointer<SymmetricCipherStream> cipherStream;
     QByteArray passwordData;
-    QTextCodec* codec = QTextCodec::codecForName("Windows-1252");
-    QByteArray passwordDataCorrect = codec->fromUnicode(password);
+
+    const auto encoding = QStringConverter::encodingForName("Windows-1252");
+    QStringEncoder encoder(encoding.value_or(QStringConverter::System));
+    QByteArray passwordDataCorrect = encoder(password);
 
     for (PasswordEncoding encoding : encodings) {
         if (encoding == Windows1252) {

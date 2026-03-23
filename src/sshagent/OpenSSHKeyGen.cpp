@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
+ *  Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 
 #include <botan/bigint.h>
 #include <botan/ecdsa.h>
+#include <botan/ec_group.h>
 #include <botan/ed25519.h>
 #include <botan/rsa.h>
 #include <botan/version.h>

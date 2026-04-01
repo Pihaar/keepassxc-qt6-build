@@ -22,8 +22,8 @@
 #include "crypto/Random.h"
 
 #include <botan/bigint.h>
-#include <botan/ecdsa.h>
 #include <botan/ec_group.h>
+#include <botan/ecdsa.h>
 #include <botan/ed25519.h>
 #include <botan/rsa.h>
 #include <botan/version.h>

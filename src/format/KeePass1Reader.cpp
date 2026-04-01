@@ -303,8 +303,8 @@ KeePass1Reader::testKeys(const QString& password, const QByteArray& keyfileData,
     QScopedPointer<SymmetricCipherStream> cipherStream;
     QByteArray passwordData;
 
-    const auto encoding = QStringConverter::encodingForName("Windows-1252");
-    QStringEncoder encoder(encoding.value_or(QStringConverter::System));
+    const auto currentEncoding = QStringConverter::encodingForName("Windows-1252");
+    QStringEncoder encoder(currentEncoding.value_or(QStringConverter::System));
     QByteArray passwordDataCorrect = encoder(password);
 
     for (PasswordEncoding encoding : encodings) {

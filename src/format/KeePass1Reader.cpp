@@ -305,7 +305,7 @@ KeePass1Reader::testKeys(const QString& password, const QByteArray& keyfileData,
 
     const auto currentEncoding = QStringConverter::encodingForName("Windows-1252");
     QStringEncoder encoder(currentEncoding.value_or(QStringConverter::System));
-    QByteArray passwordDataCorrect = encoder(password);
+    QByteArray passwordDataCorrect = encoder.encode(password);
 
     for (PasswordEncoding encoding : encodings) {
         if (encoding == Windows1252) {

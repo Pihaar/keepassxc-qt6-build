@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
+ *  Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -353,7 +353,7 @@ void TestGui::testMergeDatabase()
     QSignalSpy dbMergeSpy(m_dbWidget.data(), SIGNAL(databaseMerged(QSharedPointer<Database>)));
     QApplication::processEvents();
 
-    // set file to merge from
+    // Set file to merge from
     fileDialog()->setNextFileName(QString(KEEPASSX_TEST_DATA_DIR).append("/MergeDatabase.kdbx"));
     triggerAction("actionDatabaseMerge");
 
@@ -364,9 +364,21 @@ void TestGui::testMergeDatabase()
     QTest::keyClicks(editPasswordMerge, "a");
     QTest::keyClick(editPasswordMerge, Qt::Key_Enter);
 
-    // confirm merge in confirmation dialog
-    QTRY_VERIFY(QApplication::focusWindow()->title().contains("Merge"));
-    QTest::keyClick(QApplication::focusWidget(), Qt::Key_Enter);
+    // Confirm merge in confirmation dialog
+    auto focusedWindow = QApplication::topLevelWindows().last();
+    QVERIFY(focusedWindow);
+    QTRY_VERIFY(focusedWindow->title().contains("Merge"));
+
+    auto topLevelWidgets = QApplication::topLevelWidgets();
+    QWidget* mergeDialog = nullptr;
+    for (auto* widget : topLevelWidgets) {
+        if (widget && widget->objectName() == "MergeDialog") {
+            mergeDialog = widget;
+        }
+    }
+
+    QVERIFY(mergeDialog);
+    QTest::keyClick(mergeDialog, Qt::Key_Enter);
 
     QTRY_COMPARE(dbMergeSpy.count(), 1);
     QTRY_VERIFY(m_tabWidget->tabText(m_tabWidget->currentIndex()).contains("*"));

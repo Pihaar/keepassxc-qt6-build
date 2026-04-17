@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
+ * Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
  * Copyright (C) 2019 Andrew Richards
  *
  * Derived from Phantomstyle and relicensed under the GPLv2 or v3.
@@ -270,22 +270,16 @@ namespace Phantom
 #ifdef Q_OS_MACOS
             QColor tabBarBase(const QPalette& pal)
             {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 10) && QT_VERSION < QT_VERSION_CHECK(5, 13, 0)                               \
-    || QT_VERSION >= QT_VERSION_CHECK(5, 15, 1)
                 if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::MacOSBigSur) {
                     return hack_isLightPalette(pal) ? QRgb(0xD4D4D4) : QRgb(0x2A2A2A);
                 }
-#endif
                 return hack_isLightPalette(pal) ? QRgb(0xDD1D1D1) : QRgb(0x252525);
             }
             QColor tabBarBaseInactive(const QPalette& pal)
             {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 10) && QT_VERSION < QT_VERSION_CHECK(5, 13, 0)                               \
-    || QT_VERSION >= QT_VERSION_CHECK(5, 15, 1)
                 if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::MacOSBigSur) {
                     return hack_isLightPalette(pal) ? QRgb(0xF5F5F5) : QRgb(0x2D2D2D);
                 }
-#endif
                 return hack_isLightPalette(pal) ? QRgb(0xF4F4F4) : QRgb(0x282828);
             }
 #endif
@@ -514,10 +508,7 @@ namespace Phantom
             // generated changes. If that happens, change to use the definition of
             // `fastfragile_hash_qpalette` below, which is less likely to collide with an
             // arbitrarily numbered key but also does more work.
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-            x.u = x.u ^ (static_cast<quint64>(p.currentColorGroup()) << (64 - 3));
-            return x.u;
-#else
+
             // Use this definition here if the contents/layout of QPalette::cacheKey()
             // (as in, the C++ code in qpalette.cpp) are changed. We'll also put a Qt6
             // guard for it, so that it will default to a more safe definition on the
@@ -529,7 +520,6 @@ namespace Phantom
             h = c(h, static_cast<uint>(x.u & 0xFFFFFFFFu));
             h = c(h, static_cast<uint>((x.u >> 32) & 0xFFFFFFFFu));
             return h;
-#endif
         }
 
         // This hash function is for when we want an actual accurate hash of a

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
+ *  Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
  *  Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -254,12 +254,8 @@ QVariant EntryModel::data(const QModelIndex& index, int role) const
         }
         case Expires:
             return entry->timeInfo().expires() ? entry->timeInfo().expiryTime()
-            // There seems to be no better way of expressing 'infinity'
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+                                               // There seems to be no better way of expressing 'infinity'
                                                : QDate(9999, 1, 1).startOfDay();
-#else
-                                               : QDateTime(QDate(9999, 1, 1));
-#endif
         case Created:
             return entry->timeInfo().creationTime();
         case Modified:

@@ -2222,8 +2222,6 @@ bool MainWindowEventFilter::eventFilter(QObject* watched, QEvent* event)
 
     auto eventType = event->type();
     if (eventType == QEvent::MouseButtonPress) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-        // startSystemMove was introduced in Qt 5.15
         auto mouseEvent = dynamic_cast<QMouseEvent*>(event);
         if (watched == mainWindow->m_ui->menubar) {
             if (!mainWindow->m_ui->menubar->actionAt(mouseEvent->pos())) {
@@ -2241,7 +2239,6 @@ bool MainWindowEventFilter::eventFilter(QObject* watched, QEvent* event)
                 return true;
             }
         }
-#endif
     } else if (eventType == QEvent::KeyRelease && watched == mainWindow) {
 #ifdef Q_OS_MACOS
         // On macOS, the menubar is always visible, so no need to toggle it

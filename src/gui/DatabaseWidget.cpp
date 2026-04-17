@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 KeePassXC Team <team@keepassxc.org>
+ * Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
  * Copyright (C) 2010 Felix Geyer <debfx@fobos.de>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -1035,15 +1035,11 @@ void DatabaseWidget::openUrlForEntry(Entry* entry)
 
         if (launch) {
             const QString cmd = cmdString.mid(6);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
             QStringList cmdList = QProcess::splitCommand(cmd);
             if (!cmdList.isEmpty()) {
                 const QString program = cmdList.takeFirst();
                 QProcess::startDetached(program, cmdList);
             }
-#else
-            QProcess::startDetached(cmd);
-#endif
 
             if (config()->get(Config::MinimizeOnOpenUrl).toBool()) {
                 getMainWindow()->minimizeOrHide();

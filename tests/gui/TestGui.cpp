@@ -695,8 +695,10 @@ void TestGui::testEditEntry()
     editEntryWidget->switchToPage(EditEntryWidget::Page::Advanced);
     // auto fgColor = QString("#FF0000");
     // auto bgColor = QString("#0000FF");
-    auto fgColor = QColor::fromString("#FF0000");
-    auto bgColor = QColor::fromString("#0000FF");
+    // auto fgColor = QColor::fromString("#FF0000");
+    // auto bgColor = QColor::fromString("#0000FF");
+    auto fgColor = QColor(255, 0, 0);
+    auto bgColor = QColor(0, 0, 255);
     // Set foreground color
     auto colorButton = editEntryWidget->findChild<QPushButton*>("fgColorButton");
     auto colorCheckBox = editEntryWidget->findChild<QCheckBox*>("fgColorCheckBox");

@@ -27,7 +27,7 @@
 
 #include <QBuffer>
 #include <botan/pubkey.h>
-#include <minizip/zip.h>
+#include <../minizip/zip.h>
 
 // Compatibility with minizip-ng
 #ifdef MZ_VERSION_BUILD

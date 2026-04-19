@@ -472,6 +472,7 @@ include_directories(SYSTEM ${ZLIB_INCLUDE_DIR})
 
 # Find Minizip
 find_package(Minizip REQUIRED)
+include_directories(SYSTEM ${MINIZIP_INCLUDE_DIR})
 
 # Find PCSC and LibUSB for hardware key support
 find_package(PCSC REQUIRED)

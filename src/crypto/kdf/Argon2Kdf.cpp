@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2017 KeePassXC Team <team@keepassxc.org>
+ *  Copyright (C) 2026 KeePassXC Team <team@keepassxc.org>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -169,7 +169,8 @@ bool Argon2Kdf::transform(const QByteArray& raw, QByteArray& result) const
     const std::string algoName = (type() == Type::Argon2d) ? "Argon2d" : "Argon2id";
     try {
         // from_params for Argon2: i1 == M (memory in KiB), i2 == t (iterations), i3 == p (parallelism)
-        auto pwdHash = Botan::PasswordHashFamily::create_or_throw(algoName)->from_params(memory(), rounds(), parallelism());
+        auto pwdHash =
+            Botan::PasswordHashFamily::create_or_throw(algoName)->from_params(memory(), rounds(), parallelism());
         pwdHash->derive_key(reinterpret_cast<uint8_t*>(result.data()),
                             result.size(),
                             raw.constData(),

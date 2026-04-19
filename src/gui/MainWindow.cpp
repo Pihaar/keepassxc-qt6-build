@@ -273,29 +273,6 @@ MainWindow::MainWindow()
     connect(m_inactivityTimer, SIGNAL(inactivityDetected()), this, SLOT(lockAllDatabases()));
     applySettingsChanges();
 
-    // Qt 5.10 introduced a new "feature" to hide shortcuts in context menus
-    // Unfortunately, Qt::AA_DontShowShortcutsInContextMenus is broken, have to manually enable them
-    m_ui->actionEntryNew->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryEdit->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryExpire->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryDelete->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryRestore->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryClone->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryTotp->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryDownloadIcon->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryCopyTotp->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryCopyPasswordTotp->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryMoveUp->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryMoveDown->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryCopyUsername->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryCopyPassword->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryAutoTypeSequence->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryOpenUrl->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryCopyURL->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryCopyTitle->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryAddToAgent->setShortcutVisibleInContextMenu(true);
-    m_ui->actionEntryRemoveFromAgent->setShortcutVisibleInContextMenu(true);
-
     connect(m_ui->menuEntries, SIGNAL(aboutToShow()), SLOT(obtainContextFocusLock()));
     connect(m_ui->menuEntries, SIGNAL(aboutToHide()), SLOT(releaseContextFocusLock()));
     connect(m_entryContextMenu, SIGNAL(aboutToShow()), SLOT(obtainContextFocusLock()));

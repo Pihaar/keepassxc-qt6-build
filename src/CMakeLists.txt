@@ -338,7 +338,6 @@ target_link_libraries(keepassxc_core
         ${ZXCVBN_LIBRARIES}
         ${ZLIB_LIBRARIES}
         ${MINIZIP_LIBRARIES}
-        ${ARGON2_LIBRARIES}
         ${KEYUTILS_LIBRARIES}
         ${thirdparty_LIBRARIES})
 

@@ -454,20 +454,14 @@ elseif(WIN32)
 endif()
 
 # Find Botan
-# TODO: Increase minimum to 2.19.1 and drop Argon2 package
 find_package(Botan REQUIRED)
 if(BOTAN_VERSION VERSION_GREATER_EQUAL "3.0.0")
     set(WITH_BOTAN3 TRUE)
-elseif(BOTAN_VERSION VERSION_LESS "2.12.0")
+elseif(BOTAN_VERSION VERSION_LESS "2.19.1")
     # Check for minimum Botan version
-    message(FATAL_ERROR "Botan 2.12.0 or higher is required")   
+    message(FATAL_ERROR "Botan 2.19.1 or higher is required")   
 endif()
 include_directories(SYSTEM ${BOTAN_INCLUDE_DIR})
-
-# Find Argon2 -- Botan 2.18 and below does not support threaded Argon2
-find_library(ARGON2_LIBRARIES NAMES argon2)
-find_path(ARGON2_INCLUDE_DIR NAMES argon2.h PATH_SUFFIXES local/include)
-include_directories(SYSTEM ${ARGON2_INCLUDE_DIR})
 
 # Find zlib
 find_package(ZLIB REQUIRED)

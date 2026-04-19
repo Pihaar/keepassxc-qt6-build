@@ -268,16 +268,19 @@ add_gcc_compiler_cxxflags("-Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virt
 add_gcc_compiler_cflags("-Wchar-subscripts -Wwrite-strings")
 
 if(WITH_ASAN)
-    if(NOT (CMAKE_SYSTEM_NAME STREQUAL "Linux" OR APPLE))
-        message(FATAL_ERROR "WITH_ASAN is only supported on Linux / macOS at the moment.")
+    if(MSVC)
+        if(NOT CMAKE_COMPILER_IS_CLANG_MSVC)
+            add_compile_options(/fsanitize=address)
+        else()
+            message(WARNING "Address Sanitizer is not supported with clang-cl on MSVC, skipping ASAN flags")
+        endif()
+    else()
+        add_gcc_compiler_flags("-fsanitize=address -DWITH_ASAN")
+
+        if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+            add_gcc_compiler_flags("-fsanitize=leak -DWITH_LSAN")
+        endif()
     endif()
-
-    add_gcc_compiler_flags("-fsanitize=address -DWITH_ASAN")
-
-    if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-        add_gcc_compiler_flags("-fsanitize=leak -DWITH_LSAN")
-    endif()
-
 endif()
 
 if(CMAKE_BUILD_TYPE_LOWER MATCHES "(release|relwithdebinfo|minsizerel)")
@@ -330,9 +333,9 @@ if(WIN32)
             message(FATAL_ERROR "Only Microsoft Visual Studio 2019 and newer are supported!")
         endif()
         add_compile_options(/permissive- /utf-8)
-        # Clang-cl does not support /MP, /Zf, or /fsanitize=address
+        # Clang-cl does not support /MP or /Zf
         if (NOT CMAKE_COMPILER_IS_CLANG_MSVC)
-            add_compile_options(/MP /Zf /fsanitize=address)
+            add_compile_options(/MP /Zf)
         endif()
 
         # Enable high entropy ASLR on release builds

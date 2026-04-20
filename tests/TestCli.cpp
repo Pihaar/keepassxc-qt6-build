@@ -1377,11 +1377,8 @@ void TestCli::testGenerate()
     for (int i = 0; i < 10; ++i) {
         execCmd(generateCmd, parameters);
         QRegularExpression regex(pattern);
-#ifdef Q_OS_UNIX
+
         QString password = QString::fromUtf8(m_stdout->readLine());
-#else
-        QString password = QString::fromLatin1(m_stdout->readLine());
-#endif
 
         QVERIFY2(regex.match(password).hasMatch(),
                  qPrintable("Password " + password + " does not match pattern " + pattern));

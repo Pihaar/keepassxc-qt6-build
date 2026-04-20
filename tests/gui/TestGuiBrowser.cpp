@@ -204,7 +204,6 @@ void TestGuiBrowser::testAdditionalURLs()
         QTest::mouseClick(addURLButton, Qt::LeftButton);
         QApplication::processEvents();
         QTest::keyClicks(urlList->focusWidget(), url);
-        QTest::keyClick(urlList->focusWidget(), Qt::Key_Enter);
     }
 
     // Check the values from attributesEdit

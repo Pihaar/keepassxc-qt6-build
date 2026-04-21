@@ -77,8 +77,6 @@
 
 int main(int argc, char* argv[])
 {
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     Application app(argc, argv);
     app.setApplicationName("KeePassXC");
     app.setApplicationVersion(KEEPASSXC_VERSION);
@@ -380,7 +378,7 @@ void TestGui::testMergeDatabase()
     QVERIFY(mergeDialog);
     QTest::keyClick(mergeDialog, Qt::Key_Enter);
 
-    QTRY_COMPARE(dbMergeSpy.count(), 1);
+    QTRY_COMPARE(dbMergeSpy.size(), 1);
     QTRY_VERIFY(m_tabWidget->tabText(m_tabWidget->currentIndex()).contains("*"));
 
     m_db = m_tabWidget->currentDatabaseWidget()->database();
@@ -449,7 +447,7 @@ void TestGui::testRemoteSyncDatabaseSameKey()
     });
     QSignalSpy dbSyncSpy(m_dbWidget.data(), &DatabaseWidget::databaseSyncCompleted);
     prepareAndTriggerRemoteSync();
-    QTRY_COMPARE(dbSyncSpy.count(), 1);
+    QTRY_COMPARE(dbSyncSpy.size(), 1);
 
     m_db = m_tabWidget->currentDatabaseWidget()->database();
 
@@ -480,7 +478,7 @@ void TestGui::testRemoteSyncDatabaseRequiresPassword()
     QTest::keyClicks(editPasswordSync, "b");
     QTest::keyClick(editPasswordSync, Qt::Key_Enter);
 
-    QTRY_COMPARE(dbSyncSpy.count(), 1);
+    QTRY_COMPARE(dbSyncSpy.size(), 1);
     m_db = m_tabWidget->currentDatabaseWidget()->database();
 
     // there are seven child groups of the root group
@@ -536,7 +534,7 @@ void TestGui::testOpenRemoteDatabase()
 
                        QApplication::processEvents();
 
-                       QVERIFY(wizard->currentPage()->findChildren<QTableWidget*>().count() > 0);
+                       QVERIFY(!wizard->currentPage()->findChildren<QTableWidget*>().isEmpty());
 
                        QTest::keyClick(passwordEdit, Qt::Key_Enter););
 
@@ -1568,11 +1566,11 @@ void TestGui::testDragAndDropEntry()
     auto newEntry = targetGroup->findEntryByPath(entry->title());
     QVERIFY(newEntry);
     QVERIFY(entry->uuid() != newEntry->uuid());
-    QCOMPARE(entry->historyItems().count(), newEntry->historyItems().count());
+    QCOMPARE(entry->historyItems().size(), newEntry->historyItems().size());
 
     encoded.clear();
     entry = entryView->entryFromIndex(sourceIndex);
-    auto history = entry->historyItems().count();
+    auto history = entry->historyItems().size();
     auto uuid = entry->uuid();
     stream << entry->group()->database()->uuid() << entry->uuid();
     mimeData.setData("application/x-keepassx-entry", encoded);
@@ -1582,7 +1580,7 @@ void TestGui::testDragAndDropEntry()
     QVERIFY(groupModel->dropMimeData(&mimeData, Qt::MoveAction, -1, 0, targetIndex));
     QCOMPARE(entry->group()->name(), QString("General"));
     QCOMPARE(entry->uuid(), uuid);
-    QCOMPARE(entry->historyItems().count(), history);
+    QCOMPARE(entry->historyItems().size(), history);
 }
 
 void TestGui::testDragAndDropGroup()
@@ -1750,7 +1748,7 @@ void TestGui::testDatabaseSettings()
     QTest::mouseClick(editPasswordButton, Qt::LeftButton);
     QApplication::processEvents();
     auto passwordWidgets = dbSettingsDialog->findChildren<PasswordWidget*>();
-    QVERIFY(passwordWidgets.count() == 2);
+    QVERIFY(passwordWidgets.size() == 2);
     QVERIFY(passwordWidgets[0]->isVisible());
     passwordWidgets[0]->setText("b");
     passwordWidgets[1]->setText("b");
@@ -1883,7 +1881,7 @@ void TestGui::testDatabaseSettings()
 
     // 2.c) Make sure file was not modified yet
     Tools::wait(150); // due to modify timer
-    QTRY_COMPARE(writeDbSignalSpy.count(), 0);
+    QTRY_COMPARE(writeDbSignalSpy.size(), 0);
 
     // 2.d) Create second entry to test delay timer reset
     QTest::mouseClick(entryNewWidget, Qt::LeftButton);
@@ -1898,11 +1896,11 @@ void TestGui::testDatabaseSettings()
     // 3 Double check both true negative and true positive
     // 3.a) Test unmodified prior to delay timeout
     Tools::wait(150); // due to modify timer
-    QTRY_COMPARE(writeDbSignalSpy.count(), 0);
+    QTRY_COMPARE(writeDbSignalSpy.size(), 0);
 
     // 3.b) Test modification time after expected
     m_dbWidget->triggerAutosaveTimer();
-    QTRY_COMPARE(writeDbSignalSpy.count(), 1);
+    QTRY_COMPARE(writeDbSignalSpy.size(), 1);
 
     // 4 Test no delay when disabled autosave or autosaveDelay
     // 4.a) create new entry
@@ -1923,7 +1921,7 @@ void TestGui::testDatabaseSettings()
 
     // 4.e) Make sure changes are not saved
     m_dbWidget->triggerAutosaveTimer();
-    QTRY_COMPARE(writeDbSignalSpy.count(), 1);
+    QTRY_COMPARE(writeDbSignalSpy.size(), 1);
 
     // 4.f) Repeat for autosaveDelay
     config()->set(Config::AutoSaveAfterEveryChange, true);
@@ -1938,7 +1936,7 @@ void TestGui::testDatabaseSettings()
 
     // 4.g) Make sure changes are not saved
     m_dbWidget->triggerAutosaveTimer();
-    QTRY_COMPARE(writeDbSignalSpy.count(), 1);
+    QTRY_COMPARE(writeDbSignalSpy.size(), 1);
 
     // 5 Cleanup
     config()->set(Config::AutoSaveAfterEveryChange, false);

@@ -49,7 +49,7 @@ QModelIndex AutoTypeMatchModel::closestIndexFromMatch(const AutoTypeMatch& match
 {
     int row = -1;
 
-    for (int i = m_matches.size() - 1; i >= 0; --i) {
+    for (qsizetype i = m_matches.size() - 1; i >= 0; --i) {
         const auto& currentMatch = m_matches.at(i);
         if (currentMatch.first == match.first) {
             row = i;
@@ -173,7 +173,7 @@ QVariant AutoTypeMatchModel::headerData(int section, Qt::Orientation orientation
 
 void AutoTypeMatchModel::entryDataChanged(Entry* entry)
 {
-    for (int row = 0; row < m_matches.size(); ++row) {
+    for (qsizetype row = 0; row < m_matches.size(); ++row) {
         AutoTypeMatch match = m_matches[row];
         if (match.first == entry) {
             emit dataChanged(index(row, 0), index(row, columnCount() - 1));
@@ -183,7 +183,7 @@ void AutoTypeMatchModel::entryDataChanged(Entry* entry)
 
 void AutoTypeMatchModel::entryAboutToRemove(Entry* entry)
 {
-    for (int row = 0; row < m_matches.size(); ++row) {
+    for (qsizetype row = 0; row < m_matches.size(); ++row) {
         AutoTypeMatch match = m_matches[row];
         if (match.first == entry) {
             beginRemoveRows(QModelIndex(), row, row);

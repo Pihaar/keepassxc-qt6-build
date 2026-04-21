@@ -79,7 +79,7 @@ int Clip::executeWithDatabase(QSharedPointer<Database> database, QSharedPointer<
         EntrySearcher searcher;
         const auto& searchTerm = args.at(1);
         const auto results = searcher.search(QString("title:%1").arg(searchTerm), database->rootGroup(), true);
-        if (results.count() > 1) {
+        if (results.size() > 1) {
             err << QObject::tr("Multiple entries matching:") << Qt::endl;
             for (const Entry* result : results) {
                 err << result->path().prepend('/') << Qt::endl;

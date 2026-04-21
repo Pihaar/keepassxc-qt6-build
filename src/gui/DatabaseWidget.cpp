@@ -977,7 +977,7 @@ void DatabaseWidget::performIconDownloads(const QList<Entry*>& entries, bool for
     auto* iconDownloaderDialog = new IconDownloaderDialog(this);
     connect(this, SIGNAL(databaseLockRequested()), iconDownloaderDialog, SLOT(close()));
 
-    if (downloadInBackground && entries.count() > 0) {
+    if (downloadInBackground && !entries.isEmpty()) {
         iconDownloaderDialog->downloadFaviconInBackground(m_db, entries.first());
     } else {
         iconDownloaderDialog->downloadFavicons(m_db, entries, force);

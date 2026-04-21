@@ -760,7 +760,7 @@ void MainWindow::updateCopyAttributesMenu()
     }
 
     QList<QAction*> actions = m_ui->menuEntryCopyAttribute->actions();
-    for (int i = m_countDefaultAttributes; i < actions.size(); i++) {
+    for (qsizetype i = m_countDefaultAttributes; i < actions.size(); i++) {
         delete actions[i];
     }
 

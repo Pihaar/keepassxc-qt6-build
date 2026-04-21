@@ -141,13 +141,13 @@ void ShareObserver::reinitialize()
     }
 
     for (auto it = imported.cbegin(); it != imported.cend(); ++it) {
-        if (it.value().count() > 1) {
+        if (it.value().size() > 1) {
             warning << tr("Multiple import source path to %1 in %2").arg(it.key(), it.value().join(", "));
         }
     }
 
     for (auto it = exported.cbegin(); it != exported.cend(); ++it) {
-        if (it.value().count() > 1) {
+        if (it.value().size() > 1) {
             error << tr("Conflicting export target path %1 in %2").arg(it.key(), it.value().join(", "));
         }
     }
@@ -268,7 +268,7 @@ QList<ShareObserver::Result> ShareObserver::exportShares()
     }
 
     for (auto it = references.cbegin(); it != references.cend(); ++it) {
-        if (it.value().count() != 1) {
+        if (it.value().size() != 1) {
             const auto path = it.value().first().config.path;
             QStringList groupnames;
             for (const auto& reference : it.value()) {

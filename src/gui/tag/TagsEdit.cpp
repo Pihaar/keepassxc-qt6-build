@@ -696,7 +696,7 @@ void TagsEdit::timerEvent(QTimerEvent* event)
 void TagsEdit::mousePressEvent(QMouseEvent* event)
 {
     bool found = false;
-    for (int i = 0; i < impl->tags.size(); ++i) {
+    for (qsizetype i = 0; i < impl->tags.size(); ++i) {
         if (impl->inCrossArea(i, event->pos())) {
             impl->tags.erase(impl->tags.begin() + std::ptrdiff_t(i));
             if (i <= impl->editing_index) {
@@ -941,7 +941,7 @@ QStringList TagsEdit::tags() const
 void TagsEdit::mouseMoveEvent(QMouseEvent* event)
 {
     if (!m_readOnly) {
-        for (int i = 0; i < impl->tags.size(); ++i) {
+        for (qsizetype i = 0; i < impl->tags.size(); ++i) {
             if (impl->inCrossArea(i, event->pos())) {
                 viewport()->setCursor(Qt::ArrowCursor);
                 return;

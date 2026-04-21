@@ -434,7 +434,7 @@ namespace
         auto readers_list = getReaders(context);
 
         // Iterate all connected readers
-        foreach (const QString& reader_name, readers_list) {
+        for (const QString& reader_name : readers_list) {
             SCARDHANDLE hCard;
             SCUINT dwActiveProtocol = SCARD_PROTOCOL_UNDEFINED;
             rv = SCardConnect(context,

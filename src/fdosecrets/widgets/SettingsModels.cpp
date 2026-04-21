@@ -231,7 +231,7 @@ namespace FdoSecrets
 
     void SettingsDatabaseModel::databaseRemoved(const QString& filePath)
     {
-        for (int i = 0; i != m_dbs.size(); i++) {
+        for (qsizetype i = 0; i != m_dbs.size(); i++) {
             if (m_dbs[i] && m_dbs[i]->database()->filePath() == filePath) {
                 beginRemoveRows({}, i, i);
 
@@ -410,7 +410,7 @@ namespace FdoSecrets
 
     void SettingsClientModel::clientDisconnected(const DBusClientPtr& client)
     {
-        for (int i = 0; i != m_clients.size(); i++) {
+        for (qsizetype i = 0; i != m_clients.size(); i++) {
             if (m_clients[i] == client) {
                 beginRemoveRows({}, i, i);
 

@@ -214,7 +214,7 @@ AccessControlDialog::EntryModel::EntryModel(QList<Entry*> entries, QObject* pare
 
 int AccessControlDialog::EntryModel::rowCount(const QModelIndex& parent) const
 {
-    return isValid(parent) ? 0 : m_entries.count();
+    return isValid(parent) ? 0 : m_entries.size();
 }
 
 int AccessControlDialog::EntryModel::columnCount(const QModelIndex& parent) const

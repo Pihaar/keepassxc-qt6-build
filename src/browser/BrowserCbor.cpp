@@ -140,7 +140,7 @@ QByteArray BrowserCbor::cborEncodeExtensionData(const QJsonObject& extensions) c
     QByteArray result;
     QCborStreamWriter writer(&result);
 
-    writer.startMap(extensions.keys().count());
+    writer.startMap(extensions.keys().size());
 
     // https://w3c.github.io/webauthn/#sctn-authenticator-credential-properties-extension
     if (extensions["credProps"].toBool()) {

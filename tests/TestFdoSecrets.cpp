@@ -49,7 +49,7 @@ void TestFdoSecrets::testCrazyAttributeKey()
     // search for custom entries
     const auto term = Collection::attributeToTerm(key, value);
     const auto res = EntrySearcher().search({term}, root.data());
-    QCOMPARE(res.count(), 1);
+    QCOMPARE(res.size(), 1);
 }
 
 void TestFdoSecrets::testSpecialCharsInAttributeValue()
@@ -73,19 +73,19 @@ void TestFdoSecrets::testSpecialCharsInAttributeValue()
     {
         const auto term = Collection::attributeToTerm("testAttribute", "OAuth::[test.name@gmail.com]");
         const auto res = EntrySearcher().search({term}, root.data());
-        QCOMPARE(res.count(), 1);
+        QCOMPARE(res.size(), 1);
         QCOMPARE(res[0]->title(), QStringLiteral("titleA"));
     }
     {
         const auto term = Collection::attributeToTerm("testAttribute", "Abc:*+.-");
         const auto res = EntrySearcher().search({term}, root.data());
-        QCOMPARE(res.count(), 1);
+        QCOMPARE(res.size(), 1);
         QCOMPARE(res[0]->title(), QStringLiteral("titleB"));
     }
     {
         const auto term = Collection::attributeToTerm("testAttribute", "v|");
         const auto res = EntrySearcher().search({term}, root.data());
-        QCOMPARE(res.count(), 0);
+        QCOMPARE(res.size(), 0);
     }
 }
 

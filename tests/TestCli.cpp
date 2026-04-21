@@ -2366,7 +2366,7 @@ void TestCli::testCommandParsing()
 
     QStringList result = Utils::splitCommandString(input);
     QCOMPARE(result.size(), expectedOutput.size());
-    for (int i = 0; i < expectedOutput.size(); ++i) {
+    for (qsizetype i = 0; i < expectedOutput.size(); ++i) {
         QCOMPARE(result[i], expectedOutput[i]);
     }
 }

@@ -67,7 +67,7 @@ void TestImports::testOPUX()
     // Check attachments
     entry = db->rootGroup()->findEntryByPath("/Personal/KeePassXC Logo");
     auto attachments = entry->attachments();
-    QCOMPARE(attachments->keys().count(), 1);
+    QCOMPARE(attachments->keys().size(), 1);
     QCOMPARE(attachments->keys()[0], QString("keepassxc.png"));
 
     // Confirm advanced attributes
@@ -148,7 +148,7 @@ void TestImports::testOPVault()
     QVERIFY(entry->hasTotp());
     // Check attachments
     auto attachments = entry->attachments();
-    QCOMPARE(attachments->keys().count(), 1);
+    QCOMPARE(attachments->keys().size(), 1);
     QCOMPARE(*attachments->values().begin(), QByteArray("attachment"));
 
     // Confirm expired entries

@@ -251,7 +251,7 @@ bool CsvParser::processEscapeMark(QString& s, QChar c)
 void CsvParser::fillColumns()
 {
     // fill shorter rows with empty placeholder columns
-    for (int i = 0; i < m_table.size(); ++i) {
+    for (qsizetype i = 0; i < m_table.size(); ++i) {
         int gap = m_maxCols - m_table.at(i).size();
         if (gap > 0) {
             CsvRow r = m_table.at(i);

@@ -152,7 +152,7 @@ public:
 
     void saveSettings()
     {
-        if (m_changedActions.count()) {
+        if (!m_changedActions.isEmpty()) {
             for (const auto& action : m_changedActions.keys()) {
                 action->setShortcut(m_changedActions.value(action));
             }
@@ -165,7 +165,7 @@ public:
 private:
     static QString acceleratorsStrippedText(QString text)
     {
-        for (int i = 0; i < text.size(); ++i) {
+        for (qsizetype i = 0; i < text.size(); ++i) {
             if (text.at(i) == QLatin1Char('&') && i + 1 < text.size() && text.at(i + 1) != QLatin1Char('&')) {
                 text.remove(i, 1);
             }

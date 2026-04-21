@@ -29,7 +29,7 @@ void TestTextAttachmentsEditWidget::testEmitTextChanged()
     const QByteArray NewText = "New test text";
     textEdit->setText(NewText);
 
-    QVERIFY(textChangedSignal.count() > 0);
+    QVERIFY(!textChangedSignal.isEmpty());
 }
 
 void TestTextAttachmentsEditWidget::testEmitPreviewButtonClicked()
@@ -45,5 +45,5 @@ void TestTextAttachmentsEditWidget::testEmitPreviewButtonClicked()
 
     QTest::mouseClick(previewButton, Qt::LeftButton);
 
-    QCOMPARE(previwButtonClickedSignal.count(), 1);
+    QCOMPARE(previwButtonClickedSignal.size(), 1);
 }

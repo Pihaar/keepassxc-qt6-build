@@ -254,7 +254,7 @@ QJsonObject BrowserAction::handleGetLogins(const QJsonObject& json, const QStrin
     }
 
     const Parameters params{
-        {"count", entries.count()}, {"entries", entries}, {"hash", browserRequest.hash}, {"id", id}};
+        {"count", entries.size()}, {"entries", entries}, {"hash", browserRequest.hash}, {"id", id}};
     return buildResponse(action, browserRequest.incrementedNonce, params);
 }
 

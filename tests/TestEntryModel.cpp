@@ -66,7 +66,7 @@ void TestEntryModel::test()
 
     QSignalSpy spyDataChanged(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)));
     entry1->setTitle("changed");
-    QCOMPARE(spyDataChanged.count(), 1);
+    QCOMPARE(spyDataChanged.size(), 1);
 
     QModelIndex index1 = model->index(0, 1);
     QModelIndex index2 = model->index(1, 1);
@@ -82,44 +82,44 @@ void TestEntryModel::test()
     auto entry3 = new Entry();
     entry3->setGroup(group1);
 
-    QCOMPARE(spyAboutToBeMoved.count(), 0);
-    QCOMPARE(spyMoved.count(), 0);
+    QCOMPARE(spyAboutToBeMoved.size(), 0);
+    QCOMPARE(spyMoved.size(), 0);
 
     entry1->moveDown();
-    QCOMPARE(spyAboutToBeMoved.count(), 1);
-    QCOMPARE(spyMoved.count(), 1);
+    QCOMPARE(spyAboutToBeMoved.size(), 1);
+    QCOMPARE(spyMoved.size(), 1);
 
     entry1->moveDown();
-    QCOMPARE(spyAboutToBeMoved.count(), 2);
-    QCOMPARE(spyMoved.count(), 2);
+    QCOMPARE(spyAboutToBeMoved.size(), 2);
+    QCOMPARE(spyMoved.size(), 2);
 
     entry1->moveDown();
-    QCOMPARE(spyAboutToBeMoved.count(), 2);
-    QCOMPARE(spyMoved.count(), 2);
+    QCOMPARE(spyAboutToBeMoved.size(), 2);
+    QCOMPARE(spyMoved.size(), 2);
 
     entry3->moveUp();
-    QCOMPARE(spyAboutToBeMoved.count(), 3);
-    QCOMPARE(spyMoved.count(), 3);
+    QCOMPARE(spyAboutToBeMoved.size(), 3);
+    QCOMPARE(spyMoved.size(), 3);
 
     entry3->moveUp();
-    QCOMPARE(spyAboutToBeMoved.count(), 3);
-    QCOMPARE(spyMoved.count(), 3);
+    QCOMPARE(spyAboutToBeMoved.size(), 3);
+    QCOMPARE(spyMoved.size(), 3);
 
-    QCOMPARE(spyAboutToAdd.count(), 1);
-    QCOMPARE(spyAdded.count(), 1);
-    QCOMPARE(spyAboutToRemove.count(), 0);
-    QCOMPARE(spyRemoved.count(), 0);
+    QCOMPARE(spyAboutToAdd.size(), 1);
+    QCOMPARE(spyAdded.size(), 1);
+    QCOMPARE(spyAboutToRemove.size(), 0);
+    QCOMPARE(spyRemoved.size(), 0);
 
     entry2->setGroup(group2);
 
-    QCOMPARE(spyAboutToAdd.count(), 1);
-    QCOMPARE(spyAdded.count(), 1);
-    QCOMPARE(spyAboutToRemove.count(), 1);
-    QCOMPARE(spyRemoved.count(), 1);
+    QCOMPARE(spyAboutToAdd.size(), 1);
+    QCOMPARE(spyAdded.size(), 1);
+    QCOMPARE(spyAboutToRemove.size(), 1);
+    QCOMPARE(spyRemoved.size(), 1);
 
     QSignalSpy spyReset(model, SIGNAL(modelReset()));
     model->setGroup(group2);
-    QCOMPARE(spyReset.count(), 1);
+    QCOMPARE(spyReset.size(), 1);
 
     delete group1;
     delete group2;
@@ -156,16 +156,16 @@ void TestEntryModel::testAttachmentsModel()
 
     entryAttachments->remove("first");
 
-    QCOMPARE(spyDataChanged.count(), 1);
-    QCOMPARE(spyAboutToAdd.count(), 2);
-    QCOMPARE(spyAdded.count(), 2);
-    QCOMPARE(spyAboutToRemove.count(), 1);
-    QCOMPARE(spyRemoved.count(), 1);
+    QCOMPARE(spyDataChanged.size(), 1);
+    QCOMPARE(spyAboutToAdd.size(), 2);
+    QCOMPARE(spyAdded.size(), 2);
+    QCOMPARE(spyAboutToRemove.size(), 1);
+    QCOMPARE(spyRemoved.size(), 1);
 
     QSignalSpy spyReset(model, SIGNAL(modelReset()));
     entryAttachments->clear();
     model->setEntryAttachments(nullptr);
-    QCOMPARE(spyReset.count(), 2);
+    QCOMPARE(spyReset.size(), 2);
     QCOMPARE(model->rowCount(), 0);
 
     delete modelTest;
@@ -206,11 +206,11 @@ void TestEntryModel::testAttributesModel()
     entryAttributes->set("URL", "test");
     entryAttributes->set("Notes", "test");
 
-    QCOMPARE(spyDataChanged.count(), 1);
-    QCOMPARE(spyAboutToAdd.count(), 2);
-    QCOMPARE(spyAdded.count(), 2);
-    QCOMPARE(spyAboutToRemove.count(), 1);
-    QCOMPARE(spyRemoved.count(), 1);
+    QCOMPARE(spyDataChanged.size(), 1);
+    QCOMPARE(spyAboutToAdd.size(), 2);
+    QCOMPARE(spyAdded.size(), 2);
+    QCOMPARE(spyAboutToRemove.size(), 1);
+    QCOMPARE(spyRemoved.size(), 1);
 
     // test attribute protection
     QString value = entryAttributes->value("2nd");
@@ -231,7 +231,7 @@ void TestEntryModel::testAttributesModel()
     QSignalSpy spyReset(model, SIGNAL(modelReset()));
     entryAttributes->clear();
     model->setEntryAttributes(nullptr);
-    QCOMPARE(spyReset.count(), 2);
+    QCOMPARE(spyReset.size(), 2);
     QCOMPARE(model->rowCount(), 0);
 
     delete modelTest;

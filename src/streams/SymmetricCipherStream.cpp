@@ -155,14 +155,14 @@ bool SymmetricCipherStream::readBlock()
                 setErrorString(m_cipher->errorString());
                 return false;
             }
-        } else if (m_buffer.size() > 0) {
+        } else if (!m_buffer.isEmpty()) {
             if (!m_cipher->process(m_buffer)) {
                 m_error = true;
                 setErrorString(m_cipher->errorString());
                 return false;
             }
         }
-        return m_buffer.size() > 0;
+        return !m_buffer.isEmpty();
     }
 }
 

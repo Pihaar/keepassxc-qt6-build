@@ -91,7 +91,7 @@ void TestPreviewEntryAttachmentsDialog::testBottonsBox()
         QTest::mouseClick(button, Qt::LeftButton);
     }
 
-    QCOMPARE(saveButton.count(), 1);
-    QCOMPARE(openButton.count(), 1);
-    QCOMPARE(closeButton.count(), 1);
+    QCOMPARE(saveButton.size(), 1);
+    QCOMPARE(openButton.size(), 1);
+    QCOMPARE(closeButton.size(), 1);
 }

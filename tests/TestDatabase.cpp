@@ -121,7 +121,7 @@ void TestDatabase::testSaveAs()
     QString newDbFileName = QStringLiteral(KEEPASSX_TEST_DATA_DIR).append("/SaveAsNewDatabase.kdbx");
     QVERIFY2(db->saveAs(newDbFileName, Database::Atomic, QString(), &error), error.toLatin1());
     QVERIFY(!db->isModified());
-    QCOMPARE(spyFilePathChanged.count(), 1);
+    QCOMPARE(spyFilePathChanged.size(), 1);
     QVERIFY(QFile::exists(newDbFileName));
 #ifdef Q_OS_WIN
     QVERIFY(!QFileInfo(newDbFileName).isHidden());
@@ -151,22 +151,22 @@ void TestDatabase::testSignals()
     QString error;
     bool ok = db->open(tempFile.fileName(), key, &error);
     QVERIFY(ok);
-    QCOMPARE(spyFilePathChanged.count(), 1);
+    QCOMPARE(spyFilePathChanged.size(), 1);
 
     QSignalSpy spyModified(db.data(), SIGNAL(modified()));
     db->metadata()->setName("test1");
-    QTRY_COMPARE(spyModified.count(), 1);
+    QTRY_COMPARE(spyModified.size(), 1);
 
     QSignalSpy spySaved(db.data(), SIGNAL(databaseSaved()));
     QVERIFY(db->save(Database::Atomic, {}, &error));
-    QCOMPARE(spySaved.count(), 1);
+    QCOMPARE(spySaved.size(), 1);
 
     // Short delay to allow file system settling to reduce test failures
     Tools::wait(100);
 
     QSignalSpy spyFileChanged(db.data(), &Database::databaseFileChanged);
     QVERIFY(tempFile.copyFromFile(dbFileName));
-    QTRY_COMPARE(spyFileChanged.count(), 1);
+    QTRY_COMPARE(spyFileChanged.size(), 1);
     QTRY_VERIFY(!db->isModified());
 
     db->metadata()->setName("test2");
@@ -174,7 +174,7 @@ void TestDatabase::testSignals()
 
     QSignalSpy spyDiscarded(db.data(), SIGNAL(databaseDiscarded()));
     QVERIFY(db->open(tempFile.fileName(), key, &error));
-    QCOMPARE(spyDiscarded.count(), 1);
+    QCOMPARE(spyDiscarded.size(), 1);
 }
 
 void TestDatabase::testEmptyRecycleBinOnDisabled()
@@ -189,7 +189,7 @@ void TestDatabase::testEmptyRecycleBinOnDisabled()
 
     db->emptyRecycleBin();
     // The database must be unmodified in this test after emptying the recycle bin.
-    QTRY_COMPARE(spyModified.count(), 0);
+    QTRY_COMPARE(spyModified.size(), 0);
 }
 
 void TestDatabase::testEmptyRecycleBinOnNotCreated()
@@ -204,7 +204,7 @@ void TestDatabase::testEmptyRecycleBinOnNotCreated()
 
     db->emptyRecycleBin();
     // The database must be unmodified in this test after emptying the recycle bin.
-    QTRY_COMPARE(spyModified.count(), 0);
+    QTRY_COMPARE(spyModified.size(), 0);
 }
 
 void TestDatabase::testEmptyRecycleBinOnEmpty()
@@ -219,7 +219,7 @@ void TestDatabase::testEmptyRecycleBinOnEmpty()
 
     db->emptyRecycleBin();
     // The database must be unmodified in this test after emptying the recycle bin.
-    QTRY_COMPARE(spyModified.count(), 0);
+    QTRY_COMPARE(spyModified.size(), 0);
 }
 
 void TestDatabase::testEmptyRecycleBinWithHierarchicalData()
@@ -285,19 +285,19 @@ void TestDatabase::testExternallyModified()
 
     QSignalSpy spyFileChanged(db.data(), &Database::databaseFileChanged);
     QVERIFY(tempFile.copyFromFile(dbFileName));
-    QTRY_COMPARE(spyFileChanged.count(), 1);
+    QTRY_COMPARE(spyFileChanged.size(), 1);
     // the first argument of the databaseFileChanged signal (triggeredBySave) should be false
     QVERIFY(spyFileChanged.at(0).length() == 1);
-    QVERIFY(spyFileChanged.at(0).at(0).type() == QVariant::Bool);
+    QVERIFY(spyFileChanged.at(0).at(0).typeId() == QMetaType::Bool);
     QVERIFY(spyFileChanged.at(0).at(0).toBool() == false);
     spyFileChanged.clear();
     // shouldn't be able to save due to external changes
     QVERIFY(db->save(Database::Atomic, {}, &error) == false);
     QApplication::processEvents();
     // save should have triggered another databaseFileChanged signal
-    QVERIFY(spyFileChanged.count() >= 1);
+    QVERIFY(spyFileChanged.size() >= 1);
     // the first argument of the databaseFileChanged signal (triggeredBySave) should be true
-    QVERIFY(spyFileChanged.at(0).at(0).type() == QVariant::Bool);
+    QVERIFY(spyFileChanged.at(0).at(0).typeId() == QMetaType::Bool);
     QVERIFY(spyFileChanged.at(0).at(0).toBool() == true);
 
     // should be able to overwrite externally modified changes when explicitly requested

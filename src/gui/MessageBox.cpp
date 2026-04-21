@@ -116,7 +116,7 @@ MessageBox::Button MessageBox::messageBox(QWidget* parent,
 
         if (defaultButton != MessageBox::NoButton) {
             QList<QAbstractButton*> defPtrList = m_addedButtonLookup.keys(defaultButton);
-            if (defPtrList.count() > 0) {
+            if (!defPtrList.isEmpty()) {
                 msgBox.setDefaultButton(static_cast<QPushButton*>(defPtrList[0]));
             }
         }

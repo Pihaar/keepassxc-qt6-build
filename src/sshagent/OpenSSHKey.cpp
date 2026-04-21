@@ -180,7 +180,7 @@ const QString OpenSSHKey::privateKey()
     out += "-----BEGIN OPENSSH PRIVATE KEY-----\n";
 
     auto base64Key = QString::fromUtf8(sshKey.toBase64());
-    for (int i = 0; i < base64Key.size(); i += 70) {
+    for (qsizetype i = 0; i < base64Key.size(); i += 70) {
         out += QStringView{base64Key}.mid(i, 70);
         out += "\n";
     }

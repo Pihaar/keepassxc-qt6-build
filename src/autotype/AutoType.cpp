@@ -648,7 +648,7 @@ AutoType::parseSequence(const QString& entrySequence, const Entry* entry, QStrin
                 // Calculate TOTP at the time of typing including delays
                 bool isValid = false;
                 auto time =
-                    Clock::currentSecondsSinceEpoch() + (cumulativeDelay + currentTypingDelay * actions.count()) / 1000;
+                    Clock::currentSecondsSinceEpoch() + (cumulativeDelay + currentTypingDelay * actions.size()) / 1000;
                 auto totp = Totp::generateTotp(entry->totpSettings(), &isValid, time);
                 for (const auto& ch : totp) {
                     actions << QSharedPointer<AutoTypeKey>::create(ch);

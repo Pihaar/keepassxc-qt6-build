@@ -318,11 +318,11 @@ void TestMerge::testResolveConflictTemplate(
 
     // sanity check
     QCOMPARE(dbDestination->rootGroup()->children().at(0)->entries().size(), 2);
-    QCOMPARE(dbDestination->rootGroup()->children().at(0)->entries().at(0)->historyItems().count(), 1);
-    QCOMPARE(dbDestination->rootGroup()->children().at(0)->entries().at(1)->historyItems().count(), 1);
+    QCOMPARE(dbDestination->rootGroup()->children().at(0)->entries().at(0)->historyItems().size(), 1);
+    QCOMPARE(dbDestination->rootGroup()->children().at(0)->entries().at(1)->historyItems().size(), 1);
     QCOMPARE(dbSource->rootGroup()->children().at(0)->entries().size(), 2);
-    QCOMPARE(dbSource->rootGroup()->children().at(0)->entries().at(0)->historyItems().count(), 1);
-    QCOMPARE(dbSource->rootGroup()->children().at(0)->entries().at(1)->historyItems().count(), 1);
+    QCOMPARE(dbSource->rootGroup()->children().at(0)->entries().at(0)->historyItems().size(), 1);
+    QCOMPARE(dbSource->rootGroup()->children().at(0)->entries().at(1)->historyItems().size(), 1);
 
     // simulate some work in the dbs (manipulate the history)
     QPointer<Entry> destinationEntry1 = dbDestination->rootGroup()->children().at(0)->entries().at(0);
@@ -364,10 +364,10 @@ void TestMerge::testResolveConflictTemplate(
     sourceEntry2->endUpdate();
 
     // sanity check
-    QCOMPARE(dbDestination->rootGroup()->children().at(0)->entries().at(0)->historyItems().count(), 3);
-    QCOMPARE(dbDestination->rootGroup()->children().at(0)->entries().at(1)->historyItems().count(), 3);
-    QCOMPARE(dbSource->rootGroup()->children().at(0)->entries().at(0)->historyItems().count(), 3);
-    QCOMPARE(dbSource->rootGroup()->children().at(0)->entries().at(1)->historyItems().count(), 3);
+    QCOMPARE(dbDestination->rootGroup()->children().at(0)->entries().at(0)->historyItems().size(), 3);
+    QCOMPARE(dbDestination->rootGroup()->children().at(0)->entries().at(1)->historyItems().size(), 3);
+    QCOMPARE(dbSource->rootGroup()->children().at(0)->entries().at(0)->historyItems().size(), 3);
+    QCOMPARE(dbSource->rootGroup()->children().at(0)->entries().at(1)->historyItems().size(), 3);
 
     m_clock->advanceMinute(1);
 
@@ -637,7 +637,7 @@ void TestMerge::assertDeletionLocalOnly(Database* db, const QMap<QString, QUuid>
 
 void TestMerge::assertUpdateMergedEntry1(Entry* mergedEntry1, const QMap<const char*, QDateTime>& timestamps)
 {
-    QCOMPARE(mergedEntry1->historyItems().count(), 4);
+    QCOMPARE(mergedEntry1->historyItems().size(), 4);
     QCOMPARE(mergedEntry1->historyItems().at(0)->notes(), QString(""));
     QCOMPARE(mergedEntry1->historyItems().at(0)->timeInfo().lastModificationTime(), timestamps["initialTime"]);
     QCOMPARE(mergedEntry1->historyItems().at(1)->notes(), QString(""));
@@ -655,7 +655,7 @@ void TestMerge::assertUpdateMergedEntry1(Entry* mergedEntry1, const QMap<const c
 
 void TestMerge::assertUpdateReappliedEntry2(Entry* mergedEntry2, const QMap<const char*, QDateTime>& timestamps)
 {
-    QCOMPARE(mergedEntry2->historyItems().count(), 5);
+    QCOMPARE(mergedEntry2->historyItems().size(), 5);
     QCOMPARE(mergedEntry2->historyItems().at(0)->notes(), QString(""));
     QCOMPARE(mergedEntry2->historyItems().at(0)->timeInfo().lastModificationTime(), timestamps["initialTime"]);
     QCOMPARE(mergedEntry2->historyItems().at(1)->notes(), QString(""));
@@ -676,7 +676,7 @@ void TestMerge::assertUpdateReappliedEntry2(Entry* mergedEntry2, const QMap<cons
 
 void TestMerge::assertUpdateReappliedEntry1(Entry* mergedEntry1, const QMap<const char*, QDateTime>& timestamps)
 {
-    QCOMPARE(mergedEntry1->historyItems().count(), 5);
+    QCOMPARE(mergedEntry1->historyItems().size(), 5);
     QCOMPARE(mergedEntry1->historyItems().at(0)->notes(), QString(""));
     QCOMPARE(mergedEntry1->historyItems().at(0)->timeInfo().lastModificationTime(), timestamps["initialTime"]);
     QCOMPARE(mergedEntry1->historyItems().at(1)->notes(), QString(""));
@@ -697,7 +697,7 @@ void TestMerge::assertUpdateReappliedEntry1(Entry* mergedEntry1, const QMap<cons
 
 void TestMerge::assertUpdateMergedEntry2(Entry* mergedEntry2, const QMap<const char*, QDateTime>& timestamps)
 {
-    QCOMPARE(mergedEntry2->historyItems().count(), 4);
+    QCOMPARE(mergedEntry2->historyItems().size(), 4);
     QCOMPARE(mergedEntry2->historyItems().at(0)->notes(), QString(""));
     QCOMPARE(mergedEntry2->historyItems().at(0)->timeInfo().lastModificationTime(), timestamps["initialTime"]);
     QCOMPARE(mergedEntry2->historyItems().at(1)->notes(), QString(""));
@@ -1099,7 +1099,7 @@ void TestMerge::testMergeDuplicateCustomIcons()
     merger.merge();
 
     QVERIFY(dbDestination->metadata()->hasCustomIcon(customIconId));
-    QCOMPARE(dbDestination->metadata()->customIconsOrder().count(), 1);
+    QCOMPARE(dbDestination->metadata()->customIconsOrder().size(), 1);
     QCOMPARE(dbDestination->metadata()->customIcon(customIconId).data, customIcon2);
 }
 

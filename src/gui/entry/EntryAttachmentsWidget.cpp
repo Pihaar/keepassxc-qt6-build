@@ -327,7 +327,7 @@ void EntryAttachmentsWidget::removeSelectedAttachments()
 
     auto result = MessageBox::question(this,
                                        tr("Confirm remove"),
-                                       tr("Are you sure you want to remove %n attachment(s)?", "", indexes.count()),
+                                       tr("Are you sure you want to remove %n attachment(s)?", "", static_cast<int>(indexes.size())),
                                        MessageBox::Remove | MessageBox::Cancel,
                                        MessageBox::Cancel);
 

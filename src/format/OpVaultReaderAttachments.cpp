@@ -78,7 +78,7 @@ bool OpVaultReader::readAttachment(const QString& filePath,
     }
 
     int iconLen = 0;
-    for (int i = 0, len = iconLenBytes.size(); i < len; ++i) {
+    for (qsizetype i = 0, len = iconLenBytes.size(); i < len; ++i) {
         char ch = iconLenBytes[i];
         auto b = static_cast<unsigned char>(ch & 0xFF);
         iconLen = (b << (i * 8)) | iconLen;

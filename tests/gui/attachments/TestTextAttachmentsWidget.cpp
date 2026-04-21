@@ -163,7 +163,7 @@ void TestTextAttachmentsWidget::testPreviewTextChanged()
     m_textWidget->openAttachment(Test, attachments::OpenMode::ReadWrite);
 
     // Waiting for the first timeout
-    while (timeout.count() < 1) {
+    while (timeout.size() < 1) {
         QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
     }
 
@@ -185,7 +185,7 @@ void TestTextAttachmentsWidget::testPreviewTextChanged()
     textEdit->setText(NewText);
 
     // Waiting for the second timeout
-    while (timeout.count() < 2) {
+    while (timeout.size() < 2) {
         QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
     }
 

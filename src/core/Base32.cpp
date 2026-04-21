@@ -85,7 +85,7 @@ QByteArray Base32::decode(const QByteArray& encodedData)
         specialOffset = 0;
     }
 
-    Q_ASSERT(encodedData.size() > 0);
+    Q_ASSERT(!encodedData.isEmpty());
     const int nQuanta = encodedData.size() / 8;
     const int nBytes = nSpecialBytes > 0 ? (nQuanta - 1) * 5 + nSpecialBytes : nQuanta * 5;
 
@@ -144,7 +144,7 @@ QByteArray Base32::decode(const QByteArray& encodedData)
 
 QByteArray Base32::encode(const QByteArray& data)
 {
-    if (data.size() < 1) {
+    if (data.isEmpty()) {
         return {};
     }
 

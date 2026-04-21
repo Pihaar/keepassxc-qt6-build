@@ -391,7 +391,7 @@ QMap<QString, QStringList> ReportsWidgetBrowserStatistics::getBrowserConfigFromE
             auto deniedSites = jsonObject["Deny"].toArray();
 
             QStringList allowed;
-            foreach (const auto& value, allowedSites) {
+            for (const auto& value : allowedSites) {
                 auto url = value.toString();
                 if (!url.isEmpty()) {
                     allowed << url;
@@ -399,7 +399,7 @@ QMap<QString, QStringList> ReportsWidgetBrowserStatistics::getBrowserConfigFromE
             }
 
             QStringList denied;
-            foreach (const auto& value, deniedSites) {
+            for (const auto& value : deniedSites) {
                 auto url = value.toString();
                 if (!url.isEmpty()) {
                     denied << url;

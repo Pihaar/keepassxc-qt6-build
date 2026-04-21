@@ -956,10 +956,10 @@ bool Entry::equals(const Entry* other, CompareItemOptions options) const
         return false;
     }
     if (!options.testFlag(CompareItemIgnoreHistory)) {
-        if (m_history.count() != other->m_history.count()) {
+        if (m_history.size() != other->m_history.size()) {
             return false;
         }
-        for (int i = 0; i < m_history.count(); ++i) {
+        for (qsizetype i = 0; i < m_history.size(); ++i) {
             if (!m_history[i]->equals(other->m_history[i], options)) {
                 return false;
             }
@@ -1640,7 +1640,7 @@ QString Entry::resolveUrl(const QString& url) const
         newUrl = QUrl::fromLocalFile(newUrl).toString();
     } else if (url.startsWith("cmd://")) {
         QStringList cmdList = newUrl.split(" ");
-        for (int i = 1; i < cmdList.size(); ++i) {
+        for (qsizetype i = 1; i < cmdList.size(); ++i) {
             QString& cmd = cmdList[i];
             // Don't pass arguments to the resolveUrl function (they look like URL's)
             if (!cmd.startsWith("-") && !cmd.startsWith("/")) {

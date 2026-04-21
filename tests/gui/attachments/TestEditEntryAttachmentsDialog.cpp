@@ -90,6 +90,6 @@ void TestEditEntryAttachmentsDialog::testBottonsBox()
         QTest::mouseClick(button, Qt::LeftButton);
     }
 
-    QCOMPARE(acceptButton.count(), 1);
-    QCOMPARE(closeButton.count(), 1);
+    QCOMPARE(acceptButton.size(), 1);
+    QCOMPARE(closeButton.size(), 1);
 }

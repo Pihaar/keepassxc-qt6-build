@@ -620,7 +620,7 @@ QString KdbxXmlWriter::colorPartToString(int value)
 
 QString KdbxXmlWriter::stripInvalidXml10Chars(QString str)
 {
-    for (int i = str.size() - 1; i >= 0; i--) {
+    for (qsizetype i = str.size() - 1; i >= 0; i--) {
         const QChar ch = str.at(i);
         const ushort uc = ch.unicode();
 

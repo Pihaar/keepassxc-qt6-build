@@ -380,7 +380,7 @@ void Metadata::addCustomIcon(const QUuid& uuid, const CustomIconData& iconData)
     // Associate image hash to uuid
     QByteArray hash = hashIcon(iconData.data);
     m_customIconsHashes[hash] = uuid;
-    Q_ASSERT(m_customIcons.count() == m_customIconsOrder.count());
+    Q_ASSERT(m_customIcons.size() == m_customIconsOrder.size());
 
     emitModified();
 }
@@ -406,7 +406,7 @@ void Metadata::removeCustomIcon(const QUuid& uuid)
 
     m_customIcons.remove(uuid);
     m_customIconsOrder.removeAll(uuid);
-    Q_ASSERT(m_customIcons.count() == m_customIconsOrder.count());
+    Q_ASSERT(m_customIcons.size() == m_customIconsOrder.size());
     dynamic_cast<Database*>(parent())->addDeletedObject(uuid);
     emitModified();
 }

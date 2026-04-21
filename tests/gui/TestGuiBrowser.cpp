@@ -41,8 +41,6 @@
 
 int main(int argc, char* argv[])
 {
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     Application app(argc, argv);
     app.setApplicationName("KeePassXC");
     app.setApplicationVersion(KEEPASSXC_VERSION);
@@ -238,7 +236,7 @@ void TestGuiBrowser::testGetDatabaseGroups()
     QCOMPARE(secondChild["name"].toString(), QString("Windows"));
 
     auto subGroups = firstChild["children"].toArray();
-    QCOMPARE(subGroups.count(), 1);
+    QCOMPARE(subGroups.size(), 1);
     auto subGroupObj = subGroups.at(0).toObject();
     QCOMPARE(subGroupObj["name"].toString(), QString("SubGroup"));
 }

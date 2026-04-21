@@ -370,7 +370,7 @@ namespace Utils
 
         bool insideQuotes = false;
         QString cur;
-        for (int i = 0; i < command.size(); ++i) {
+        for (qsizetype i = 0; i < command.size(); ++i) {
             QChar c = command[i];
             if (c == '\\' && i < command.size() - 1) {
                 cur.append(command[i + 1]);

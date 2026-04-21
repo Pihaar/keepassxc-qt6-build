@@ -1943,7 +1943,7 @@ void BaseStyle::drawPrimitive(PrimitiveElement elem,
                         const auto selectionModel = itemView->selectionModel();
                         if (selectionModel) {
                             const auto selection = selectionModel->selection();
-                            if (selection.count() == 1) {
+                            if (selection.size() == 1) {
                                 const auto& range = selection.at(0);
                                 if (isTableView) {
                                     // For table views, we don't draw the "current" frame if
@@ -4040,7 +4040,7 @@ QSize BaseStyle::sizeFromContents(ContentsType type,
         // height to the contents size. We only want to add this tricky space if
         // there is at least more than 1 item in the menu.
         const auto acts = widget->actions();
-        if (acts.count() < 2)
+        if (acts.size() < 2)
             break;
         // We only want to add the tricky space if there's at least 1 separator,
         // otherwise it looks weird.

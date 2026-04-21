@@ -323,18 +323,18 @@ bool Group::equals(const Group* other, CompareItemOptions options) const
     if (m_customData != other->m_customData) {
         return false;
     }
-    if (m_children.count() != other->m_children.count()) {
+    if (m_children.size() != other->m_children.size()) {
         return false;
     }
-    if (m_entries.count() != other->m_entries.count()) {
+    if (m_entries.size() != other->m_entries.size()) {
         return false;
     }
-    for (int i = 0; i < m_children.count(); ++i) {
+    for (qsizetype i = 0; i < m_children.size(); ++i) {
         if (m_children[i]->uuid() != other->m_children[i]->uuid()) {
             return false;
         }
     }
-    for (int i = 0; i < m_entries.count(); ++i) {
+    for (qsizetype i = 0; i < m_entries.size(); ++i) {
         if (m_entries[i]->uuid() != other->m_entries[i]->uuid()) {
             return false;
         }

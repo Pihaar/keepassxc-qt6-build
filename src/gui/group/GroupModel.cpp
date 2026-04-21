@@ -432,7 +432,7 @@ void GroupModel::sortChildren(Group* rootGroup, bool reverse)
     QList<QModelIndex> newIndexes;
     collectIndexesRecursively(newIndexes, rootGroup->children());
 
-    for (int i = 0; i < oldIndexes.count(); i++) {
+    for (qsizetype i = 0; i < oldIndexes.size(); i++) {
         changePersistentIndex(oldIndexes[i], newIndexes[i]);
     }
 

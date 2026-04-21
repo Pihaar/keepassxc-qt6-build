@@ -951,7 +951,7 @@ void EditEntryWidget::loadEntry(Entry* entry,
     setReadOnly(m_history);
 
     switchToPage(Page::Main);
-    setPageHidden(m_historyWidget, m_history || m_entry->historyItems().count() < 1);
+    setPageHidden(m_historyWidget, m_history || m_entry->historyItems().isEmpty());
 #ifdef KPXC_FEATURE_SSHAGENT
     setPageHidden(m_sshAgentWidget, !sshAgent()->isEnabled());
 #endif
@@ -1237,7 +1237,7 @@ bool EditEntryWidget::commitEntry()
     // End entry update
 
     m_historyModel->setEntries(m_entry->historyItems(), m_entry);
-    setPageHidden(m_historyWidget, m_history || m_entry->historyItems().count() < 1);
+    setPageHidden(m_historyWidget, m_history || m_entry->historyItems().isEmpty());
     m_advancedUi->attachmentsWidget->linkAttachments(m_entry->attachments());
 
     showMessage(tr("Entry updated successfully."), MessageWidget::Positive);

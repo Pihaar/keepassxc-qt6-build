@@ -118,10 +118,10 @@ void AutoTypeAssociations::clear()
 
 bool AutoTypeAssociations::operator==(const AutoTypeAssociations& other) const
 {
-    if (m_associations.count() != other.m_associations.count()) {
+    if (m_associations.size() != other.m_associations.size()) {
         return false;
     }
-    for (int i = 0; i < m_associations.count(); ++i) {
+    for (qsizetype i = 0; i < m_associations.size(); ++i) {
         if (m_associations[i] != other.m_associations[i]) {
             return false;
         }

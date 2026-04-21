@@ -58,7 +58,7 @@ void BrowserAccessControlDialog::setEntries(const QList<Entry*>& entriesToConfir
     m_ui->rememberDecisionCheckBox->setVisible(!httpAuth);
     m_ui->rememberDecisionCheckBox->setChecked(false);
 
-    m_ui->itemsTable->setRowCount(entriesToConfirm.count());
+    m_ui->itemsTable->setRowCount(entriesToConfirm.size());
     m_ui->itemsTable->setColumnCount(3);
 
     int row = 0;

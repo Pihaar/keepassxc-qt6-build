@@ -42,7 +42,7 @@ namespace FdoSecrets
         auxParams.reserve(auxParams.size() + inputTypes.size());
 
         // prepare params
-        for (int count = 0; count != inputTypes.size(); ++count) {
+        for (qsizetype count = 0; count != inputTypes.size(); ++count) {
             const auto& id = inputTypes.at(count);
             const auto& arg = args.at(count);
 
@@ -122,7 +122,7 @@ namespace FdoSecrets
             // assumes output params (reference parameter) all follows input params
             bool outputBegin = false;
             for (const auto& paramType : mm.parameterTypes()) {
-                auto id = QMetaType::type(paramType);
+                auto id = QMetaType::fromName(paramType).id();
 
                 // handle the first optional calling client param
                 if (id == qMetaTypeId<DBusClientPtr>()) {
@@ -133,7 +133,7 @@ namespace FdoSecrets
                 // handle output types
                 if (paramType.endsWith('&')) {
                     outputBegin = true;
-                    id = QMetaType::type(paramType.left(paramType.length() - 1));
+                    id = QMetaType::fromName(paramType.left(paramType.length() - 1)).id();
                     md.outputTypes.append(id);
                     auto paramData = typeToWireType(id);
                     if (paramData.signature.isEmpty()) {
@@ -382,7 +382,7 @@ namespace FdoSecrets
         }
 
         // output args need to be converted before they can be directly sent out:
-        for (int i = 0; i != outputArgs.size(); ++i) {
+        for (qsizetype i = 0; i != outputArgs.size(); ++i) {
             auto& outputArg = outputArgs[i];
             QMetaType mtype(method.outputTargetTypes.at(i));
             if (!outputArg.convert(mtype)) {

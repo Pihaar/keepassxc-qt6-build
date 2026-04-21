@@ -108,49 +108,49 @@ void TestEntrySearcher::testSearch()
 
     // Simple search term testing
     m_searchResult = m_entrySearcher.search("search", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 5);
+    QCOMPARE(m_searchResult.size(), 5);
 
     m_searchResult = m_entrySearcher.search("search term", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 3);
+    QCOMPARE(m_searchResult.size(), 3);
 
     m_searchResult = m_entrySearcher.search("123", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 2);
+    QCOMPARE(m_searchResult.size(), 2);
 
     m_searchResult = m_entrySearcher.search("search term", group211);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     // Test advanced search terms
     m_searchResult = m_entrySearcher.search("title:123", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     m_searchResult = m_entrySearcher.search("t:123", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     m_searchResult = m_entrySearcher.search("password:testpass", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     m_searchResult = m_entrySearcher.search("pw:testpass", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     m_searchResult = m_entrySearcher.search("!user:email.com", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 5);
+    QCOMPARE(m_searchResult.size(), 5);
 
     m_searchResult = m_entrySearcher.search("!u:email.com", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 5);
+    QCOMPARE(m_searchResult.size(), 5);
 
     m_searchResult = m_entrySearcher.search("*user:\".*@.*\\.com\"", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     m_searchResult = m_entrySearcher.search("+user:email", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 0);
+    QCOMPARE(m_searchResult.size(), 0);
 
     // Terms are logical AND together
     m_searchResult = m_entrySearcher.search("password:pass user:user", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     // Parent group has search disabled
     m_searchResult = m_entrySearcher.search("search term", group11);
-    QCOMPARE(m_searchResult.count(), 0);
+    QCOMPARE(m_searchResult.size(), 0);
 }
 
 void TestEntrySearcher::testAndConcatenationInSearch()
@@ -161,22 +161,22 @@ void TestEntrySearcher::testAndConcatenationInSearch()
     entry->setGroup(m_rootGroup);
 
     m_searchResult = m_entrySearcher.search("", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     m_searchResult = m_entrySearcher.search("def", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     m_searchResult = m_entrySearcher.search("  abc    ghi  ", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     m_searchResult = m_entrySearcher.search("ghi ef", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     m_searchResult = m_entrySearcher.search("abc ef xyz", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 0);
+    QCOMPARE(m_searchResult.size(), 0);
 
     m_searchResult = m_entrySearcher.search("abc kl", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 }
 
 void TestEntrySearcher::testAllAttributesAreSearched()
@@ -191,7 +191,7 @@ void TestEntrySearcher::testAllAttributesAreSearched()
 
     // Default is to AND all terms together
     m_searchResult = m_entrySearcher.search("testTitle testUsername testUrl testNote", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 }
 
 void TestEntrySearcher::testSearchTermParser()
@@ -261,12 +261,12 @@ void TestEntrySearcher::testCustomAttributesAreSearched()
 
     // search for custom entries
     m_searchResult = m_entrySearcher.search("_testAttribute:test", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 2);
+    QCOMPARE(m_searchResult.size(), 2);
 
     // protected attributes are ignored
     m_entrySearcher = EntrySearcher(false, true);
     m_searchResult = m_entrySearcher.search("_testAttribute:test _testProtected:testP2", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 2);
+    QCOMPARE(m_searchResult.size(), 2);
 }
 
 void TestEntrySearcher::testGroup()
@@ -311,19 +311,19 @@ void TestEntrySearcher::testGroup()
     eSub3->setGroup(subgroup2);
 
     m_searchResult = m_entrySearcher.search("group:subgroup", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 3);
+    QCOMPARE(m_searchResult.size(), 3);
 
     m_searchResult = m_entrySearcher.search("g:subgroup1", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 2);
+    QCOMPARE(m_searchResult.size(), 2);
 
     m_searchResult = m_entrySearcher.search("g:subgroup1 search", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 
     m_searchResult = m_entrySearcher.search("g:*1/sub*1", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 2);
+    QCOMPARE(m_searchResult.size(), 2);
 
     m_searchResult = m_entrySearcher.search("g:/group1 search", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 }
 
 void TestEntrySearcher::testSkipProtected()
@@ -390,10 +390,10 @@ void TestEntrySearcher::testUUIDSearch()
     entry2->setUuid(uuid2);
 
     m_searchResult = m_entrySearcher.search("uuid:", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 2);
+    QCOMPARE(m_searchResult.size(), 2);
 
     m_searchResult = m_entrySearcher.search("uuid:" + Tools::uuidToHex(uuid1), m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
 }
 
 void TestEntrySearcher::testTotpSearch()
@@ -418,18 +418,18 @@ void TestEntrySearcher::testTotpSearch()
 
     // Test searching for TOTP entries
     m_searchResult = m_entrySearcher.search("has:totp", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 2);
+    QCOMPARE(m_searchResult.size(), 2);
     QVERIFY(m_searchResult.contains(entry2));
     QVERIFY(m_searchResult.contains(entry3));
     QVERIFY(!m_searchResult.contains(entry1));
 
     // Test case insensitive search
     m_searchResult = m_entrySearcher.search("has:TOTP", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 2);
+    QCOMPARE(m_searchResult.size(), 2);
 
     // Test excluding TOTP entries
     m_searchResult = m_entrySearcher.search("!has:totp", m_rootGroup);
-    QCOMPARE(m_searchResult.count(), 1);
+    QCOMPARE(m_searchResult.size(), 1);
     QVERIFY(m_searchResult.contains(entry1));
     QVERIFY(!m_searchResult.contains(entry2));
     QVERIFY(!m_searchResult.contains(entry3));

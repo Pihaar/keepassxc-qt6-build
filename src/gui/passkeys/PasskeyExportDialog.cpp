@@ -43,7 +43,7 @@ PasskeyExportDialog::~PasskeyExportDialog()
 
 void PasskeyExportDialog::setEntries(const QList<Entry*>& items)
 {
-    m_ui->itemsTable->setRowCount(items.count());
+    m_ui->itemsTable->setRowCount(items.size());
     m_ui->itemsTable->setColumnCount(1);
 
     int row = 0;

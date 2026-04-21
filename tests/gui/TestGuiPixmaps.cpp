@@ -52,7 +52,7 @@ void TestGuiPixmaps::testEntryIcons()
     icon.setPixel(0, 0, qRgb(0, 0, 0));
     icon.setPixel(1, 0, qRgb(0, 0, 50));
     db->metadata()->addCustomIcon(iconUuid, Icons::saveToBytes(icon));
-    QCOMPARE(db->metadata()->customIconsOrder().count(), 1);
+    QCOMPARE(db->metadata()->customIconsOrder().size(), 1);
 
     entry->setIcon(iconUuid);
     // Confirm the icon is the same as that stored in the database

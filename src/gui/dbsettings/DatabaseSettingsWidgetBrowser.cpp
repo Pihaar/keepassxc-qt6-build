@@ -184,7 +184,7 @@ void DatabaseSettingsWidgetBrowser::removeSharedEncryptionKeys()
         m_db->metadata()->customData()->remove(key);
     }
 
-    const int count = keysToRemove.count();
+    const auto count = keysToRemove.size();
     MessageBox::information(this,
                             tr("Removed keys from database"),
                             tr("Successfully removed %n encryption key(s) from KeePassXC settings.", "", count),
@@ -205,7 +205,7 @@ void DatabaseSettingsWidgetBrowser::removeStoredPermissions()
 
     QList<Entry*> entries = m_db->rootGroup()->entriesRecursive();
 
-    QProgressDialog progress(tr("Removing stored permissions…"), tr("Abort"), 0, entries.count());
+    QProgressDialog progress(tr("Removing stored permissions…"), tr("Abort"), 0, static_cast<int>(entries.size()));
     progress.setWindowModality(Qt::WindowModal);
 
     uint counter = 0;

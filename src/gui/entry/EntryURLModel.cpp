@@ -98,7 +98,7 @@ void EntryURLModel::setEntryUrl(const QString& entryUrl)
 
 bool EntryURLModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-    if (!index.isValid() || role != Qt::EditRole || value.type() != QVariant::String || value.toString().isEmpty()) {
+    if (!index.isValid() || role != Qt::EditRole || value.typeId() != QMetaType::QString || value.toString().isEmpty()) {
         return false;
     }
 
@@ -118,7 +118,7 @@ bool EntryURLModel::setData(const QModelIndex& index, const QVariant& value, int
 QModelIndex EntryURLModel::indexByKey(const QString& key) const
 {
     int row = -1;
-    for (int i = 0; i < m_urls.size(); ++i) {
+    for (qsizetype i = 0; i < m_urls.size(); ++i) {
         if (m_urls.at(i).first == key) {
             row = i;
             break;

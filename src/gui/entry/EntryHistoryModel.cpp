@@ -48,7 +48,7 @@ int EntryHistoryModel::columnCount(const QModelIndex& parent) const
 int EntryHistoryModel::rowCount(const QModelIndex& parent) const
 {
     if (!parent.isValid()) {
-        return m_historyEntries.count();
+        return m_historyEntries.size();
     } else {
         return 0;
     }
@@ -169,7 +169,7 @@ void EntryHistoryModel::deleteIndex(QModelIndex index)
 
 void EntryHistoryModel::deleteAll()
 {
-    Q_ASSERT(m_historyEntries.count() > 0);
+    Q_ASSERT(!m_historyEntries.isEmpty());
 
     beginRemoveRows(QModelIndex(), 0, m_historyEntries.size() - 1);
 

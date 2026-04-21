@@ -170,7 +170,7 @@ void MergeDialog::updateChangeTable()
         m_ui->changeTable->setHorizontalHeaderItem(index, new QTableWidgetItem(name));
         m_ui->changeTable->setColumnHidden(index, isColumnHiddenByDefault(column));
     }
-    for (int row = 0; row < m_changes.size(); ++row) {
+    for (qsizetype row = 0; row < m_changes.size(); ++row) {
         const auto& change = m_changes[row];
         for (auto column : allColumns) {
             m_ui->changeTable->setItem(row, columnIndex(column), new QTableWidgetItem(cellValue(change, column)));

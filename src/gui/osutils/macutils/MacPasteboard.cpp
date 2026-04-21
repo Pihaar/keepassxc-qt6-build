@@ -64,7 +64,7 @@ bool MacPasteboard::canConvert(const QString& mime, const QString& uti) const
 
 QVariant MacPasteboard::convertToMime(const QString& mime, const QList<QByteArray>& data, const QString& uti) const
 {
-    if (data.count() > 1)
+    if (data.size() > 1)
         qWarning("QMime::convertToMime: Cannot handle multiple member data");
     const QByteArray& firstData = data.first();
     QVariant ret;

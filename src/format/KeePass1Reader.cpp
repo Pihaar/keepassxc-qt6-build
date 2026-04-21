@@ -767,7 +767,7 @@ void KeePass1Reader::parseNotes(const QString& rawNotes, Entry* entry)
 
 bool KeePass1Reader::constructGroupTree(const QList<Group*>& groups)
 {
-    for (int i = 0; i < groups.size(); i++) {
+    for (qsizetype i = 0; i < groups.size(); i++) {
         quint32 level = m_groupLevels.value(groups[i]);
 
         if (level == 0) {

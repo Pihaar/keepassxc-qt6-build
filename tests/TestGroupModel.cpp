@@ -80,7 +80,7 @@ void TestGroupModel::test()
     QSignalSpy spy1(model, SIGNAL(dataChanged(QModelIndex, QModelIndex)));
     group11->setName("test");
     group121->setIcon(4);
-    QCOMPARE(spy1.count(), 2);
+    QCOMPARE(spy1.size(), 2);
     QCOMPARE(model->data(index11).toString(), QString("test"));
 
     QSignalSpy spyAboutToAdd(model, SIGNAL(rowsAboutToBeInserted(QModelIndex, int, int)));
@@ -95,50 +95,50 @@ void TestGroupModel::test()
     group2->setName("group2");
     group2->setParent(groupRoot);
     QModelIndex index2 = model->index(1, 0, indexRoot);
-    QCOMPARE(spyAboutToAdd.count(), 1);
-    QCOMPARE(spyAdded.count(), 1);
-    QCOMPARE(spyAboutToRemove.count(), 0);
-    QCOMPARE(spyRemoved.count(), 0);
-    QCOMPARE(spyAboutToMove.count(), 0);
-    QCOMPARE(spyMoved.count(), 0);
+    QCOMPARE(spyAboutToAdd.size(), 1);
+    QCOMPARE(spyAdded.size(), 1);
+    QCOMPARE(spyAboutToRemove.size(), 0);
+    QCOMPARE(spyRemoved.size(), 0);
+    QCOMPARE(spyAboutToMove.size(), 0);
+    QCOMPARE(spyMoved.size(), 0);
     QCOMPARE(model->data(index2).toString(), QString("group2"));
 
     group12->setParent(group1, 0);
-    QCOMPARE(spyAboutToAdd.count(), 1);
-    QCOMPARE(spyAdded.count(), 1);
-    QCOMPARE(spyAboutToRemove.count(), 0);
-    QCOMPARE(spyRemoved.count(), 0);
-    QCOMPARE(spyAboutToMove.count(), 1);
-    QCOMPARE(spyMoved.count(), 1);
+    QCOMPARE(spyAboutToAdd.size(), 1);
+    QCOMPARE(spyAdded.size(), 1);
+    QCOMPARE(spyAboutToRemove.size(), 0);
+    QCOMPARE(spyRemoved.size(), 0);
+    QCOMPARE(spyAboutToMove.size(), 1);
+    QCOMPARE(spyMoved.size(), 1);
     QCOMPARE(model->data(index12).toString(), QString("group12"));
 
     group12->setParent(group1, 1);
-    QCOMPARE(spyAboutToAdd.count(), 1);
-    QCOMPARE(spyAdded.count(), 1);
-    QCOMPARE(spyAboutToRemove.count(), 0);
-    QCOMPARE(spyRemoved.count(), 0);
-    QCOMPARE(spyAboutToMove.count(), 2);
-    QCOMPARE(spyMoved.count(), 2);
+    QCOMPARE(spyAboutToAdd.size(), 1);
+    QCOMPARE(spyAdded.size(), 1);
+    QCOMPARE(spyAboutToRemove.size(), 0);
+    QCOMPARE(spyRemoved.size(), 0);
+    QCOMPARE(spyAboutToMove.size(), 2);
+    QCOMPARE(spyMoved.size(), 2);
     QCOMPARE(model->data(index12).toString(), QString("group12"));
 
     group12->setParent(group2);
-    QCOMPARE(spyAboutToAdd.count(), 1);
-    QCOMPARE(spyAdded.count(), 1);
-    QCOMPARE(spyAboutToRemove.count(), 0);
-    QCOMPARE(spyRemoved.count(), 0);
-    QCOMPARE(spyAboutToMove.count(), 3);
-    QCOMPARE(spyMoved.count(), 3);
+    QCOMPARE(spyAboutToAdd.size(), 1);
+    QCOMPARE(spyAdded.size(), 1);
+    QCOMPARE(spyAboutToRemove.size(), 0);
+    QCOMPARE(spyRemoved.size(), 0);
+    QCOMPARE(spyAboutToMove.size(), 3);
+    QCOMPARE(spyMoved.size(), 3);
     QVERIFY(index12.isValid());
     QCOMPARE(model->data(index12).toString(), QString("group12"));
     QCOMPARE(model->data(index12.model()->index(0, 0, index12)).toString(), QString("group121"));
 
     delete group12;
-    QCOMPARE(spyAboutToAdd.count(), 1);
-    QCOMPARE(spyAdded.count(), 1);
-    QCOMPARE(spyAboutToRemove.count(), 2);
-    QCOMPARE(spyRemoved.count(), 2);
-    QCOMPARE(spyAboutToMove.count(), 3);
-    QCOMPARE(spyMoved.count(), 3);
+    QCOMPARE(spyAboutToAdd.size(), 1);
+    QCOMPARE(spyAdded.size(), 1);
+    QCOMPARE(spyAboutToRemove.size(), 2);
+    QCOMPARE(spyRemoved.size(), 2);
+    QCOMPARE(spyAboutToMove.size(), 3);
+    QCOMPARE(spyMoved.size(), 3);
     QVERIFY(!index12.isValid());
 
     // test removing a group that has children

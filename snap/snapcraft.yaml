@@ -49,12 +49,15 @@ parts:
       - -DKEEPASSXC_DIST_TYPE=Snap
       - -DKEEPASSXC_BUILD_TYPE=Release
       - -DWITH_TESTS=OFF
-      - -DWITH_XC_ALL=ON
-      - -DWITH_XC_UPDATECHECK=OFF
+      - -DKPXC_FEATURE_BROWSER=ON
+      - -DKPXC_FEATURE_SSHAGENT=ON
+      - -DKPXC_FEATURE_FDOSECRETS=ON
+      - -DKPXC_FEATURE_NETWORK=ON
+      - -DKPXC_FEATURE_UPDATES=OFF
+      - -DKPXC_FEATURE_DOCS=ON
     build-packages:
       - g++
       - libbotan-2-dev
-      - libargon2-dev
       - zlib1g-dev
       - libqrencode-dev
       - libusb-1.0-0-dev

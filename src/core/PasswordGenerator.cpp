@@ -79,14 +79,14 @@ QString PasswordGenerator::generatePassword() const
             password.append(group[pos]);
         }
 
-        for (int i = groups.size(); i < m_length; i++) {
+        for (qsizetype i = groups.size(); i < m_length; i++) {
             int pos = randomGen()->randomUInt(static_cast<quint32>(passwordChars.size()));
 
             password.append(passwordChars[pos]);
         }
 
         // shuffle chars
-        for (int i = (password.size() - 1); i >= 1; i--) {
+        for (qsizetype i = (password.size() - 1); i >= 1; i--) {
             int j = randomGen()->randomUInt(static_cast<quint32>(i + 1));
 
             QChar tmp = password[i];

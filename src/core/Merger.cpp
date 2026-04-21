@@ -568,8 +568,8 @@ bool Merger::mergeHistory(const Entry* sourceEntry,
     bool changed = false;
     const auto updatedHistoryItems = merged.values();
     for (int i = 0; i < maxItems; ++i) {
-        const Entry* oldEntry = targetHistoryItems.value(targetHistoryItems.count() - i);
-        const Entry* newEntry = updatedHistoryItems.value(updatedHistoryItems.count() - i);
+        const Entry* oldEntry = targetHistoryItems.value(targetHistoryItems.size() - i);
+        const Entry* newEntry = updatedHistoryItems.value(updatedHistoryItems.size() - i);
         if (!oldEntry && !newEntry) {
             continue;
         }

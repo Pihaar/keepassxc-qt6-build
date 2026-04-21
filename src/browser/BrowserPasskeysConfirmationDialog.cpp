@@ -137,7 +137,7 @@ void BrowserPasskeysConfirmationDialog::updateTimeoutLabel()
 void BrowserPasskeysConfirmationDialog::updateEntriesToTable(const QList<Entry*>& entries)
 {
     m_entries = entries;
-    m_ui->credentialsTable->setRowCount(entries.count());
+    m_ui->credentialsTable->setRowCount(entries.size());
     m_ui->credentialsTable->setColumnCount(1);
 
     int row = 0;

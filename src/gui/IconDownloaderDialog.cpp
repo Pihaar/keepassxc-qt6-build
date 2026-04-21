@@ -73,7 +73,7 @@ void IconDownloaderDialog::downloadFavicons(const QSharedPointer<Database>& data
         }
     }
 
-    if (m_urlToEntries.count() > 0) {
+    if (!m_urlToEntries.isEmpty()) {
 #ifdef Q_OS_MACOS
         macUtils()->raiseOwnWindow();
         Tools::wait(100);
@@ -112,7 +112,7 @@ void IconDownloaderDialog::downloadFaviconInBackground(const QSharedPointer<Data
         m_urlToEntries.insert(webUrl, entry);
     }
 
-    if (m_urlToEntries.count() > 0) {
+    if (!m_urlToEntries.isEmpty()) {
         m_activeDownloaders.append(createDownloader(webUrl));
         m_activeDownloaders.first()->download();
     }
@@ -183,8 +183,8 @@ void IconDownloaderDialog::showFallbackMessage(bool state)
 
 void IconDownloaderDialog::updateProgressBar()
 {
-    int total = m_urlToEntries.uniqueKeys().count();
-    int value = total - m_activeDownloaders.count();
+    auto total = m_urlToEntries.uniqueKeys().size();
+    auto value = total - m_activeDownloaders.size();
     m_ui->progressBar->setValue(value);
     m_ui->progressBar->setMaximum(total);
     m_ui->progressLabel->setText(

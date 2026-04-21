@@ -61,7 +61,7 @@ void CustomIconModel::setIcons(const QHash<QUuid, QPixmap>& icons, const QList<Q
 
     m_icons = icons;
     m_iconsOrder = iconsOrder;
-    Q_ASSERT(m_icons.count() == m_iconsOrder.count());
+    Q_ASSERT(m_icons.size() == m_iconsOrder.size());
 
     endResetModel();
 }

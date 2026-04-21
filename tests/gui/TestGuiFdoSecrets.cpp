@@ -47,8 +47,6 @@
 
 int main(int argc, char* argv[])
 {
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     Application app(argc, argv);
     app.setApplicationName("KeePassXC");
     app.setApplicationVersion(KEEPASSXC_VERSION);
@@ -609,7 +607,7 @@ void TestGuiFdoSecrets::testServiceUnlockItems()
         VERIFY(spyPromptCompleted.isValid());
 
         // nothing is unlocked yet
-        COMPARE(spyPromptCompleted.count(), 0);
+        COMPARE(spyPromptCompleted.size(), 0);
         DBUS_COMPARE(item->locked(), true);
 
         // drive the prompt
@@ -647,7 +645,7 @@ void TestGuiFdoSecrets::testServiceUnlockItems()
         VERIFY(spyPromptCompleted.isValid());
 
         // nothing is unlocked yet
-        COMPARE(spyPromptCompleted.count(), 0);
+        COMPARE(spyPromptCompleted.size(), 0);
         DBUS_COMPARE(item->locked(), true);
 
         // drive the prompt
@@ -700,7 +698,7 @@ void TestGuiFdoSecrets::testServiceUnlockItemsIncludeFutureEntries()
         VERIFY(spyPromptCompleted.isValid());
 
         // nothing is unlocked yet
-        COMPARE(spyPromptCompleted.count(), 0);
+        COMPARE(spyPromptCompleted.size(), 0);
         DBUS_COMPARE(item->locked(), true);
 
         // drive the prompt
@@ -761,7 +759,7 @@ void TestGuiFdoSecrets::testServiceLock()
 
         VERIFY(waitForSignal(spyPromptCompleted, 1));
         auto args = spyPromptCompleted.takeFirst();
-        COMPARE(args.count(), 2);
+        COMPARE(args.size(), 2);
         COMPARE(args.at(0).toBool(), true);
         COMPARE(getSignalVariantArgument<QList<QDBusObjectPath>>(args.at(1)), {});
 
@@ -782,7 +780,7 @@ void TestGuiFdoSecrets::testServiceLock()
 
         VERIFY(waitForSignal(spyPromptCompleted, 1));
         auto args = spyPromptCompleted.takeFirst();
-        COMPARE(args.count(), 2);
+        COMPARE(args.size(), 2);
         COMPARE(args.at(0).toBool(), false);
         COMPARE(getSignalVariantArgument<QList<QDBusObjectPath>>(args.at(1)), {QDBusObjectPath(coll->path())});
 
@@ -845,7 +843,7 @@ void TestGuiFdoSecrets::testServiceLockConcurrent()
     VERIFY(waitForSignal(spyPromptCompleted, 1));
     {
         auto args = spyPromptCompleted.takeFirst();
-        COMPARE(args.count(), 2);
+        COMPARE(args.size(), 2);
         COMPARE(args.at(0).toBool(), false);
         COMPARE(getSignalVariantArgument<QList<QDBusObjectPath>>(args.at(1)), {QDBusObjectPath(coll->path())});
     }
@@ -853,7 +851,7 @@ void TestGuiFdoSecrets::testServiceLockConcurrent()
     VERIFY(waitForSignal(spyPromptCompleted2, 1));
     {
         auto args = spyPromptCompleted2.takeFirst();
-        COMPARE(args.count(), 2);
+        COMPARE(args.size(), 2);
         COMPARE(args.at(0).toBool(), false);
         COMPARE(getSignalVariantArgument<QList<QDBusObjectPath>>(args.at(1)), {QDBusObjectPath(coll->path())});
     }
@@ -965,7 +963,7 @@ void TestGuiFdoSecrets::testCollectionDelete()
 
     VERIFY(waitForSignal(spyPromptCompleted, 1));
     auto args = spyPromptCompleted.takeFirst();
-    COMPARE(args.count(), 2);
+    COMPARE(args.size(), 2);
     COMPARE(args.at(0).toBool(), false);
     COMPARE(args.at(1).value<QDBusVariant>().variant().toString(), QStringLiteral(""));
 
@@ -1015,7 +1013,7 @@ void TestGuiFdoSecrets::testCollectionDeleteConcurrent()
     VERIFY(waitForSignal(spyPromptCompleted, 1));
     {
         auto args = spyPromptCompleted.takeFirst();
-        COMPARE(args.count(), 2);
+        COMPARE(args.size(), 2);
         COMPARE(args.at(0).toBool(), false);
         COMPARE(args.at(1).value<QDBusVariant>().variant().toString(), QStringLiteral(""));
     }
@@ -1023,7 +1021,7 @@ void TestGuiFdoSecrets::testCollectionDeleteConcurrent()
     VERIFY(waitForSignal(spyPromptCompleted2, 1));
     {
         auto args = spyPromptCompleted2.takeFirst();
-        COMPARE(args.count(), 2);
+        COMPARE(args.size(), 2);
         COMPARE(args.at(0).toBool(), false);
         COMPARE(args.at(1).value<QDBusVariant>().variant().toString(), QStringLiteral(""));
     }
@@ -1448,7 +1446,7 @@ void TestGuiFdoSecrets::testItemDelete()
 
     VERIFY(waitForSignal(spyPromptCompleted, 1));
     auto args = spyPromptCompleted.takeFirst();
-    COMPARE(args.count(), 2);
+    COMPARE(args.size(), 2);
     COMPARE(args.at(0).toBool(), false);
     COMPARE(args.at(1).toString(), QStringLiteral(""));
 
@@ -1915,13 +1913,13 @@ bool TestGuiFdoSecrets::waitForSignal(QSignalSpy& spy, int expectedCount)
 {
     processEvents();
     // If already expected count, do not wait and return immediately
-    if (spy.count() == expectedCount) {
+    if (spy.size() == expectedCount) {
         return true;
-    } else if (spy.count() > expectedCount) {
+    } else if (spy.size() > expectedCount) {
         return false;
     }
     spy.wait();
-    COMPARE(spy.count(), expectedCount);
+    COMPARE(spy.size(), expectedCount);
     return true;
 }
 

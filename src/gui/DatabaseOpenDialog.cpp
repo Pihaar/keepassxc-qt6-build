@@ -111,7 +111,7 @@ void DatabaseOpenDialog::addDatabaseTab(DatabaseWidget* dbWidget)
     m_tabDbWidgets.append(dbWidget);
     QFileInfo fileInfo(dbWidget->database()->filePath());
     m_tabBar->addTab(fileInfo.fileName());
-    Q_ASSERT(m_tabDbWidgets.count() == m_tabBar->count());
+    Q_ASSERT(m_tabDbWidgets.size() == m_tabBar->count());
 }
 
 void DatabaseOpenDialog::setActiveDatabaseTab(DatabaseWidget* dbWidget)
@@ -127,18 +127,18 @@ void DatabaseOpenDialog::setActiveDatabaseTab(DatabaseWidget* dbWidget)
 
 void DatabaseOpenDialog::tabChanged(int index)
 {
-    if (index < 0 || index >= m_tabDbWidgets.count()) {
+    if (index < 0 || index >= m_tabDbWidgets.size()) {
         return;
     }
 
-    if (m_tabDbWidgets.count() == m_tabBar->count()) {
+    if (m_tabDbWidgets.size() == m_tabBar->count()) {
         DatabaseWidget* dbWidget = m_tabDbWidgets[index];
         setTarget(dbWidget, dbWidget->database()->filePath());
     } else {
         // if these list sizes don't match, there's a bug somewhere nearby
         qWarning("DatabaseOpenDialog: mismatch between tab count %d and DB count %" PRIdQSIZETYPE "",
                  m_tabBar->count(),
-                 m_tabDbWidgets.count());
+                 m_tabDbWidgets.size());
     }
 }
 

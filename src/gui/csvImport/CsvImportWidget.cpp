@@ -175,7 +175,7 @@ void CsvImportWidget::updatePreview()
     m_comboModel->setStringList(csvColumns);
 
     // Try to match named columns to the combo boxes
-    for (int i = 0; i < m_columnHeader.size(); ++i) {
+    for (qsizetype i = 0; i < m_columnHeader.size(); ++i) {
         if (i >= m_combos.size()) {
             // This should not happen, it is a programming error otherwise
             Q_ASSERT(false);
@@ -183,7 +183,7 @@ void CsvImportWidget::updatePreview()
         }
 
         bool found = false;
-        for (int j = 0; j < csvColumns.size(); ++j) {
+        for (qsizetype j = 0; j < csvColumns.size(); ++j) {
             if (m_columnHeader.at(i).compare(csvColumns.at(j), Qt::CaseInsensitive) == 0) {
                 m_combos.at(i)->setCurrentIndex(j);
                 found = true;

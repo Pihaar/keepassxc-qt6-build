@@ -148,11 +148,11 @@ void ImportWizardPageReview::setupDatabasePreview()
     }
 
     auto entryList = m_db->rootGroup()->entriesRecursive();
-    m_ui->previewLabel->setText(tr("Entry count: %1").arg(entryList.count()));
+    m_ui->previewLabel->setText(tr("Entry count: %1").arg(entryList.size()));
 
     QStringList headerLabels({tr("Group"), tr("Title"), tr("Username"), tr("Password"), tr("Url")});
 
-    auto tableWidget = new QTableWidget(entryList.count(), headerLabels.count());
+    auto tableWidget = new QTableWidget(static_cast<int>(entryList.size()), static_cast<int>(headerLabels.size()));
     tableWidget->setHorizontalHeaderLabels(headerLabels);
 
     int row = 0;

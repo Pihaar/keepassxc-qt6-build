@@ -44,7 +44,7 @@ void TestImageAttachmentsView::testEmitWheelEvent()
 
     QCoreApplication::sendEvent(m_view->viewport(), &event);
 
-    QCOMPARE(ctrlWheelEvent.count(), 1);
+    QCOMPARE(ctrlWheelEvent.size(), 1);
 }
 
 void TestImageAttachmentsView::testEnableFit()

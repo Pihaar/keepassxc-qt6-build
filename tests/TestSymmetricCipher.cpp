@@ -229,7 +229,7 @@ void TestSymmetricCipher::testTwofish256CbcEncryption()
 
     SymmetricCipher cipher;
 
-    for (int i = 0; i < keys.size(); ++i) {
+    for (qsizetype i = 0; i < keys.size(); ++i) {
         QVERIFY(cipher.init(SymmetricCipher::Twofish_CBC, SymmetricCipher::Encrypt, keys[i], ivs[i]));
         QByteArray ptNext = plainTexts[i];
         QByteArray ctPrev = ivs[i];
@@ -283,7 +283,7 @@ void TestSymmetricCipher::testTwofish256CbcDecryption()
 
     SymmetricCipher cipher;
 
-    for (int i = 0; i < keys.size(); ++i) {
+    for (qsizetype i = 0; i < keys.size(); ++i) {
         QVERIFY(cipher.init(SymmetricCipher::Twofish_CBC, SymmetricCipher::Decrypt, keys[i], ivs[i]));
         QByteArray ctNext = cipherTexts[i];
         QByteArray ptCur;

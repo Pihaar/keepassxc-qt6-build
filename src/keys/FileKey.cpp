@@ -234,7 +234,7 @@ void FileKey::createXMLv2(QIODevice* device, int size)
 
     w.writeAttribute("Hash", result.toHex().toUpper());
     w.writeCharacters("\n            ");
-    for (int i = 0; i < key.size(); ++i) {
+    for (qsizetype i = 0; i < key.size(); ++i) {
         // Pretty-print hex value (not strictly necessary, but nicer to read and KeePass2 does it)
         if (i != 0 && i % 32 == 0) {
             w.writeCharacters("\n            ");
